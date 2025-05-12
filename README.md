@@ -11,7 +11,8 @@
   YOUR_FILE_TEXTURES with of your character images inside.
   Atlas texture won't work, only individual .png sprites.
   Note: Json generated must has the minimum of arguments:
-  - At least 1 Armature and 1 bone.
+  - At least 1 Armature.
+  - At least 1 bone.
   - At least 1 Slot with 1 Skin.
   - At least 1 Animation.
 

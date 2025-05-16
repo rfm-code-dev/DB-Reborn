@@ -4,7 +4,7 @@
 import sys, os
 
 from PySide6 import QtWidgets, QtGui, QtMultimedia
-from PySide6.QtGui import QPixmap, QIcon, QTextFormat
+from PySide6.QtGui import QPixmap, QIcon, QTextFormat, QPalette, QColor
 from PySide6.QtWidgets import QApplication, QFileDialog, QLabel, QLineEdit, QMessageBox, QGraphicsTextItem, QTextEdit
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import QFile, QIODevice, QUrl
@@ -19,6 +19,16 @@ global old_json_file_name
 global new_spinejson
 global spinejson_path
 
+try:
+    from ctypes import windll  # Only exists on Windows.
+    #myapp_id = 'mycompany.myproduct.subproduct.version'
+    myapp_id = 'rfmcodedev.dbreborn.converter.version1'
+
+    windll.shell32.SetCurrentProcessExplicitAppUserModelID(myapp_id)
+except ImportError:
+    pass
+
+
 def exit_app():
     sys.exit()
 
@@ -27,7 +37,7 @@ help_text = """<html>
 <h3 style="font-family:verdana;">DB Reborn - How to Export Animations</h3>
 <pre style="font-family:verdana;">1-Create your Animation in Dragonbones 5.6.2.
 
-2-Export it as Spine Json 3.3 with images in 100% of size in a folder.
+2-Export it as Json 3.3 with images in 100% of size in a folder.
   After export, you will get the YOUR_FILE.json and a folder called
   YOUR_FILE_TEXTURES with of your character images inside.
   Atlas texture won't work, only individual .png sprites.
@@ -55,13 +65,13 @@ help_text = """<html>
     Default Animation.
   - Create an Script to play the animation and see the result.
 
-Note: If your animation has easy in/out curves, the script will try to
+Note: If your animation has easing in/out curves, the script will try to
   convert the curve values. If somehow Defold crashes, check "Force Linear"
-  to turn all ease curve animations to linear ease animations.
+  to turn all easing curve animations to linear.
 
-For more info and tutorials, visit the <a href='https://www.youtube.com/watch?v=uowkgY5dFaI'>Youtube Channel</a> or the
-  <a href='https://www.youtube.com/watch?v=uowkgY5dFaI'>Github Project</a> page.
-Please report any bugs to <a href="mailto:rodrigo.fontanella@gmail.com">e-mail</a>.
+For more info and tutorials, visit the <a href='https://www.youtube.com/@rfmcodedev'>Youtube Channel</a>
+or the <a href='https://github.com/rfm-code-dev/DB-Reborn'>Github Project</a> page.
+Please report any bugs by <a href="mailto:rfm.code.dev@gmail.com">e-mail</a>.
  
 Enjoy!</pre>
 </body>
@@ -112,37 +122,41 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.app_dir = os.path.dirname(__file__)
-        #print(self.app_dir)
+        print(self.app_dir)
         self.loader = QUiLoader()
-        self.ui_file_name = "db_ui.ui"
+        self.ui_file_name = os.path.join(self.app_dir, "db_ui.ui")
         self.ui_file = QFile(self.ui_file_name)
         self.window = self.loader.load(self.ui_file)
         self.window.setWindowTitle("DB REBORN 1.0")
         self.spine_version = "4.2.22"
+
+        #Background Window Image
+        self.background = QPixmap(os.path.join(self.app_dir, "images", "background.png"))
+        self.window.background.setPixmap(self.background)
 
         self.input_field = False
         self.output_field = False
 
         # Alert Sound
         self.alert = QSoundEffect()
-        self.alert.setSource(QUrl.fromLocalFile("sounds/blip.wav"))
+        self.alert.setSource(QUrl.fromLocalFile(os.path.join(self.app_dir, "sounds", "blip.wav")))
         self.alert.setVolume(0.5)
 
         # Success Sound
         self.success = QSoundEffect()
-        self.success.setSource(QUrl.fromLocalFile("sounds/success.wav"))
+        self.success.setSource(QUrl.fromLocalFile(os.path.join(self.app_dir, "sounds", "success.wav")))
         self.success.setVolume(0.5)
 
         self.converted = ""
 
-        # Db-Reborn Icon
-        self.window.setWindowIcon(QtGui.QIcon("images/icon.ico"))
+        # Db Reborn Icon
+        #app.setWindowIcon(QtGui.QIcon('images/icon.svg'))
+        self.window.setWindowIcon(QtGui.QIcon(os.path.join(self.app_dir, "images", "icon256x256.png")))
 
-        # Game Axe Creative Logo Icon
-        self.icon_path = "images/db_reborn_symbol.png"
+        # DB Reborn Logo
+        self.icon_path = os.path.join(self.app_dir, "images", "db_reborn_symbol.png")
         self.icon_pixmap = QPixmap(self.icon_path)
-        self.game_axe_icon = QIcon(self.icon_pixmap)
-        self.msg_box = QMessageBox()
+        self.about_box = QMessageBox()
         self.help_box =  QMessageBox()
 
         # Access widgets in the UI
@@ -172,12 +186,15 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui_file.close()
         self.window.show()
 
+        # Setting up all Message Boxes to the same color layout
+        QMessageBox.setStyleSheet(self, "background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
+
         if not self:
-            print(self.loader.errorString())
+            #print(self.loader.errorString())
             sys.exit(-1)
 
         if not self.ui_file.open(QIODevice.ReadOnly):
-            print(f"Cannot open {self.ui_file_name}: {self.ui_file.errorString()}")
+            #print(f"Cannot open {self.ui_file_name}: {self.ui_file.errorString()}")
             sys.exit(-1)
 
         sys.exit(app.exec())
@@ -217,6 +234,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 QMessageBox.warning(self, "Check Json Failed", check_not_passed_text,
                                         buttons=QMessageBox.StandardButton.Ok)
                 self.input_field = False
+
         else:
             self.window.json_path.setText(self.default_input_text)
             self.input_field = False
@@ -240,7 +258,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
             QMessageBox.warning(self, "Please Select Json File", select_json_file_first,
                                 buttons=QMessageBox.StandardButton.Ok)
-
 
     def convert(self):
         global easing_type
@@ -279,6 +296,7 @@ class MainWindow(QtWidgets.QMainWindow):
             # print(my_instance.file_converted)
             QMessageBox.information(self, "Conversion Completed", congratulation_text,
                                     buttons=QMessageBox.StandardButton.Ok)
+            QMessageBox.setStyleSheet(self, "background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
 
         return self.converted
 
@@ -287,28 +305,22 @@ class MainWindow(QtWidgets.QMainWindow):
         #QMessageBox.about(self,"DB Reborn Help", help_text)
         self.help_box.setWindowTitle("DB Reborn Help")
         self.help_box.setText(help_text)
-        #self.help_box.setText("<a href = 'https://www.youtube.com/watch?v=uowkgY5dFaI' > YouTube DB Reborn Tutorial < / a >")
-        #self.help_box.setText("<p>This is rich text.</p>")
-
+        self.help_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
         self.help_box.setStandardButtons(QMessageBox.Ok)
         self.help_box.exec()
 
     def about(self):
-        # self.icon_pixmap = QPixmap(self.icon_path)
-        # self.game_axe_icon = QIcon(self.icon_pixmap)
-        #self.msg_box.setIcon(QMessageBox.)
-        self.msg_box.setIconPixmap(self.icon_pixmap)
-        self.msg_box.setWindowTitle("About DB-Reborn")
-        self.msg_box.setText(about_text)
-        self.msg_box.setStandardButtons(QMessageBox.Ok)
-        self.msg_box.exec()
-        #QMessageBox.about(self, "About DB-Reborn", about_text)
+        self.about_box.setIconPixmap(self.icon_pixmap)
+        self.about_box.setWindowTitle("About DB-Reborn")
+        self.about_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
+        self.about_box.setText(about_text)
+        self.about_box.setStandardButtons(QMessageBox.Ok)
+        self.about_box.exec()
 
 
 if __name__ == "__main__":
     # The default of easing_type is 'curve'
     easing_type = 'curve'
     app = QtWidgets.QApplication(sys.argv)
-    #app.setWindowIcon(QtGui.QIcon('icon.ico'))
     w = MainWindow()
 

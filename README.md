@@ -41,6 +41,6 @@ Note: If your animation has easy in/out curves, the script will try to
 
 For more info and tutorials, visit the <a href='https://www.youtube.com/@rfmcodedev'>Youtube Channel</a>.
 
-Please report any bugs via <a href="mailto:rodrigo.fontanella@gmail.com">e-mail</a>.
+Please report any bugs via <a href="mailto:rfm.code.dev@gmail.com">e-mail</a>.
  
 Enjoy!

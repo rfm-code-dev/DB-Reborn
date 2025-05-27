@@ -39,8 +39,7 @@ Note: If your animation has easy in/out curves, the script will try to
   convert the curve values. If somehow Defold crashes, check "Force Linear"
   to turn all ease curve animations to linear ease animations.
 
-For more info and tutorials, visit the <a href='https://www.youtube.com/watch?v=uowkgY5dFaI'>Youtube Channel</a> or the
-  <a href='https://www.youtube.com/watch?v=uowkgY5dFaI'>Github Project</a> page.
+For more info and tutorials, visit the <a href='https://www.youtube.com/watch?v=uowkgY5dFaI'>Youtube Channel</a>.
 
 Please report any bugs via <a href="mailto:rodrigo.fontanella@gmail.com">e-mail</a>.
  

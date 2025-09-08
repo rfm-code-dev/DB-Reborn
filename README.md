@@ -43,7 +43,7 @@ Note 2: Dragonbones doesn't have the "Shear" controls in the interface,
   so it's impossible for the user to put X or Y values for the "Shear" effect.
   But somehow Dragonbones generates the "shear" keys and curves in the
   output "json". To avoid future problems, I decided to delete all the
-  "shear" curves in the ".spinejson" output file, letting only the "time" keys,
+  "shear" curves in the ".spinejson" output file, leaving only the "time" keys,
   since they don't interfere in the final animations.
 
 For more info and tutorials, visit the <a href='https://www.youtube.com/@rfmcodedev'>Youtube Channel</a>.

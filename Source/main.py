@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import sys, os
+from gc import enable
 
 from PySide6 import QtWidgets, QtGui, QtMultimedia
-from PySide6.QtGui import QPixmap, QIcon, QTextFormat, QPalette, QColor
+from PySide6.QtGui import QPixmap, QIcon, QTextFormat, QPalette, QColor, QFont, QFontDatabase
 from PySide6.QtWidgets import QApplication, QFileDialog, QLabel, QLineEdit, QMessageBox, QGraphicsTextItem, QTextEdit
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import QFile, QIODevice, QUrl
@@ -23,7 +24,6 @@ try:
     from ctypes import windll  # Only exists on Windows.
     #myapp_id = 'mycompany.myproduct.subproduct.version'
     myapp_id = 'rfmcodedev.dbreborn.converter.version1'
-
     windll.shell32.SetCurrentProcessExplicitAppUserModelID(myapp_id)
 except ImportError:
     pass
@@ -122,7 +122,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.app_dir = os.path.dirname(__file__)
-        print(self.app_dir)
+        #print(self.app_dir)
         self.loader = QUiLoader()
         self.ui_file_name = os.path.join(self.app_dir, "db_ui.ui")
         self.ui_file = QFile(self.ui_file_name)
@@ -156,8 +156,28 @@ class MainWindow(QtWidgets.QMainWindow):
         # DB Reborn Logo
         self.icon_path = os.path.join(self.app_dir, "images", "db_reborn_symbol.png")
         self.icon_pixmap = QPixmap(self.icon_path)
+
+        #Message Box
         self.about_box = QMessageBox()
         self.help_box =  QMessageBox()
+
+        #Set Labels fonts
+        id = QFontDatabase.addApplicationFont(os.path.join(self.app_dir, "fonts", "OpenSans-Regular.ttf"))
+        families = QFontDatabase.applicationFontFamilies(id)
+        #print(families[0])
+
+        self.font_regular = QFont("Open Sans", 9)
+        self.font_regular.setBold(False)
+
+        self.font_bold = QFont("Open Sans", 8)
+        self.font_bold.setBold(True)
+
+        self.window.text.setFont(self.font_regular)
+        self.window.input_json.setFont(self.font_regular)
+        self.window.json_path.setFont(self.font_regular)
+        self.window.output_spinejson.setFont(self.font_regular)
+        self.window.output_path.setFont(self.font_regular)
+        self.window.spine_version_label.setFont(self.font_regular)
 
         # Access widgets in the UI
         # Locate Json

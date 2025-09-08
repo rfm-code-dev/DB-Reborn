@@ -32,15 +32,15 @@
   - Create an Atlas texture and import all images of YOUR_FILE_TEXTURES.
   - Create a "Spine Scene" and choose YOUR_FILE.spinejson and Atlas.
   - Create a Game Object > Add Component > Spine Model. Select the
-    Default Animation.
-  - Create a Script to play the animation and see the result.
+    default Animation.
+  - Create a script to play the animation and see the result.
 
 Note 1: If your animation has easy in/out curves, the script will try to
   convert the curve values. If somehow Defold crashes, check "Force Linear"
   to turn all ease curve animations to linear ease animations.
 
 Note 2: Dragonbones doesn't have the "Shear" controls in the interface,
-  so it's impossible for the user to put X or Y values for "Shear" effect.
+  so it's impossible for the user to put X or Y values for the "Shear" effect.
   But somehow Dragonbones generates the "shear" keys and curves in the
   output json. To avoid future problems, I decided to delete the "shear"
   "curves" in the ".spinejson" output file, letting only the "time" keys,

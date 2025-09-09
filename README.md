@@ -16,10 +16,25 @@
   - At least 1 slot with 1 skin.
   - At least 1 animation.
 
-3-Download a copy of DB-Reborn on your PC for Linux, Windows or MacOS.
-  Go to the Github project address and download it.
+3-The easy way to run DB Reborn is to download a copy of the app for
+  Linux or Windows. Go to the Github project address and download it.
+  MacOS users and others can download the "Source" folder and execute the
+  main.py file. Make sure you have all Python3 modules installed.
 
-4-Open DB-Reborn. Select the ".json" file (must be in the same folder
+  DB Reborn GUI was made in Qt6. If you have problems displaying the GUI,
+  it can be executed in the command line. Do the following:
+  - Download the "Source" folder.
+  - Make sure to have the last Python3 version installed in your system.
+    Note: You must have all the Python3 modules required by the app to run.
+  - Open the terminal inside the extracted "Source" folder and type:
+    python3 db_reborn.py "JSON PATH" "SPINEJSON PATH" "SPINE VERSION" "EASE"
+    Where:
+     JSON PATH: Path to the location of the JSON file, including the file.
+     SPINEJSON PATH: Folder where the app will generate the "spinejson" file.
+     SPINE VERSION: Type "4.2.22"
+     EASE: Type "curve" for ease curves or "linear". 
+
+4-Open DB Reborn. Select the ".json" file (must be in the same folder
   of YOUR_FILE_TEXTURES).
 
 5-Select the output folder for the "YOUR_FILE.spinejson".

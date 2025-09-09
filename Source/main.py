@@ -42,19 +42,20 @@ help_text = """<html>
   YOUR_FILE_TEXTURES with of your character images inside.
   Atlas texture won't work, only individual .png sprites.
   Note: Json generated must has the minimum of arguments:
-  - At least 1 Armature and 1 bone.
-  - At least 1 Slot with 1 Skin.
-  - At least 1 Animation.
+  - At least 1 armature
+  - At least 1 bone
+  - At least 1 slot with 1 skin.
+  - At least 1 animation.
 
 3-Download a copy of DB-Reborn on your PC for Linux, Windows or MacOS.
   Go to the Github Project address and download it.
 
-4-Open DB-Reborn. Select the .json file (Must be in the same folder
+4-Open DB-Reborn. Select the ".json" file (must be in the same folder
   of YOUR_FILE_TEXTURES).
 
-5-Select the output folder for the YOUR_FILE.spinejson.
+5-Select the output folder for the "YOUR_FILE.spinejson".
 
-6-Copy “YOUR_FILE.spinejson” and the YOUR_FILE_TEXTURES folder
+6-Copy “YOUR_FILE.spinejson” and the "YOUR_FILE_TEXTURES" folder
   to your Defold project folder.
 
 7-When Defold opens, do the follow:
@@ -65,9 +66,17 @@ help_text = """<html>
     Default Animation.
   - Create an Script to play the animation and see the result.
 
-Note: If your animation has easing in/out curves, the script will try to
-  convert the curve values. If somehow Defold crashes, check "Force Linear"
-  to turn all easing curve animations to linear.
+Note 1: If your animation has easy in/out curves, the script will try
+  to convert the curve values. If somehow Defold crashes, check
+  "Force Linear" to turn all ease curve animations to linear
+  ease animations.
+
+Note 2: Dragonbones doesn't have the "Shear" controls in the interface,
+  so it's impossible for the user to put X or Y values for the "Shear"
+  effect. But somehow Dragonbones generates the "shear" keys and curves
+  in the output "json". To avoid future problems, I decided to delete
+  all the "shear" curves in the ".spinejson" output file, leaving only
+  the "time" keys, since they don't interfere in the final animations.
 
 For more info and tutorials, visit the <a href='https://www.youtube.com/@rfmcodedev'>Youtube Channel</a>
 or the <a href='https://github.com/rfm-code-dev/DB-Reborn'>Github Project</a> page.

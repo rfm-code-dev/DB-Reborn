@@ -68,7 +68,7 @@ Note 2: Dragonbones doesn't have the "Shear" controls in the interface,
 
 For more info and tutorials, visit the <a href='https://www.youtube.com/@rfmcodedev'>Youtube Channel</a>.
 
-[app_window]: https://github.com/rfm-code-dev/DB-Reborn/db_reborn_window.png "DB Reborn Main Window"
+[app_window]: https://github.com/rfm-code-dev/DB-Reborn/images/db_reborn_window.png "DB Reborn Main Window"
 
 Please report any bugs via <a href="mailto:rfm.code.dev@gmail.com">e-mail</a>.
  

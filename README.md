@@ -6,28 +6,32 @@
 <h3>How to Export Animations</h3>
 1-Create your animation in Dragonbones 5.6.2.
 
-2-Export it as Spine Json 3.3 with images in 100% of the size in a folder.
+2-Export it as JSON 3.3 with images in 100% of the size in a folder.
   After export, you will get the YOUR_FILE.json and a folder called
   YOUR_FILE_TEXTURES with your character images inside.
-  Atlas texture won't work, only individual .png sprites.
-  Note: The Json generated must have the minimum of arguments:
+  Atlas textures won't work, only individual .png sprites.
+  Note: The generated JSON must have these minimum arguments:
   - At least 1 armature.
   - At least 1 bone.
   - At least 1 slot with 1 skin.
   - At least 1 animation.
 
-3-The easy way to run DB Reborn is to download a copy of the app for
-  Linux or Windows. Go to the Github project address and download it.
+3-The easy way to run DB Reborn is to download the app for Linux or Windows.
+  Go to the Github project address and download it.
   MacOS users and others can download the "Source" folder and execute the
-  main.py file. Make sure you have all Python3 modules installed.
+  main.py file in the Python enviroment. Make sure you have all Python3
+  modules installed.
 
-  DB Reborn GUI was made in Qt6. If you have problems displaying the GUI,
-  it can be executed in the command line. Do the following:
+  DB Reborn GUI was made in Qt6 (Pyside 6). If you have problems displaying
+  the GUI, it can be executed in the command line. Do the following:
   - Download the "Source" folder.
   - Make sure to have the last Python3 version installed in your system.
     Note: You must have all the Python3 modules required by the app to run.
-  - Open the terminal inside the extracted "Source" folder and type:
+  - Open your system terminal inside the extracted "Source" folder and type these
+    commands in the right order:
+    
     python3 db_reborn.py "JSON PATH" "SPINEJSON PATH" "SPINE VERSION" "EASE"
+
     Where:
      JSON PATH: Path to the location of the JSON file, including the file.
      SPINEJSON PATH: Folder where the app will generate the "spinejson" file.

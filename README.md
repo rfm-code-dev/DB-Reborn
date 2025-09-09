@@ -40,6 +40,7 @@
 
 4-Open DB Reborn. Select the ".json" file (must be in the same folder
   of YOUR_FILE_TEXTURES).
+  ![alt text][app_window]
 
 5-Select the output folder for the "YOUR_FILE.spinejson".
 
@@ -66,6 +67,8 @@ Note 2: Dragonbones doesn't have the "Shear" controls in the interface,
   since they don't interfere in the final animations.
 
 For more info and tutorials, visit the <a href='https://www.youtube.com/@rfmcodedev'>Youtube Channel</a>.
+
+[app_window]: https://github.com/rfm-code-dev/DB-Reborn/db_reborn_window.png "DB Reborn Main Window"
 
 Please report any bugs via <a href="mailto:rfm.code.dev@gmail.com">e-mail</a>.
  

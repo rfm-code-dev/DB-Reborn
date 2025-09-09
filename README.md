@@ -3,6 +3,11 @@
 <h3 style="font-family:verdana;">A tool to convert Dragonbones ".json" 3.3 in ".spinejson" for use in the Defold Game Engine.
 </h3>
 
+<h3>Intro</h3>
+Text
+
+
+
 <h3>Tutorial</h3>
 1-Create your animation in Dragonbones 5.6.2.
 
@@ -59,6 +64,8 @@ Note 1: If your animation has easy in/out curves, the script will try to convert
 
 Note 2: DragonBones doesn't have the "Shear" controls in the interface, so it's impossible the user set X or Y values for the "Shear" effect. But when "json" is generated, DragonBones fill automatically the "shear" keys and curves. To avoid future problems, I decided to delete all the "shear" curves in the ".spinejson" output file, leaving only the "time" keys, since they don't interfere in the final animations.
 
+ ![alt text][dragonbones_properties]
+
 For more info and tutorials, visit the <a href='https://www.youtube.com/@rfmcodedev'>Youtube Channel</a>.
 
 Please report any bugs via <a href="mailto:rfm.code.dev@gmail.com">e-mail</a>.
@@ -67,3 +74,4 @@ Enjoy!
 
 [app_window]: /images/db_reborn_window.png "DB Reborn Main Window"
 [force_linear]: /images/force_linear.png "DB Reborn Force Linear Checked"
+[dragonbones_properties]: /images/dragonbones_properties.png "DragonBones Properties"

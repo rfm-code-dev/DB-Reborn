@@ -4,9 +4,7 @@
 </h3>
 
 <h3>Intro</h3>
-Text
-
-
+Cutout animations are widely used in games and other media for their versatility and visual impact. They allow you to use a small number of sprites and reuse them, instead of importing hundreds of animation frames, which takes up a lot of disk space and can cause performance issues. I've been using the Defold Game Engine for some time, and unfortunately, it doesn't have built-in Cutout animation features—it only imports JSON from Spine, a paid application, through a plugin. Since I'm just a hobbyist and don't have the budget to invest in a copy of Spine, I searched for a free alternative to use Cutout animations and came across Dragonbones, which previously supported export to Spine. Dragonbones hasn't been updated for a few years and has been somewhat forgotten, but it remains a good Cutout animation program, bringing together the basics for anyone to animate. However, today, due to the various updates and features in Spine's JSON file, it's no longer possible to export Dragonbones JSON and use it directly in Defold. Since JSON is an open text file containing data, I developed a Python tool that can convert and update Dragonbones JSON to a version compatible with the Defold plugin. I've named this app DB Reborn. It's still experimental and may not be suitable for all types of projects. In my tests, I was able to convert Dragonbones animations satisfactorily, which gives me enough confidence to move forward and develop a more polished project. Give it a try and let me know your experience. I hope you enjoy DB Reborn and have fun!
 
 <h3>Tutorial</h3>
 1-Create your animation in Dragonbones 5.6.2.
@@ -62,7 +60,7 @@ Note 1: If your animation has easy in/out curves, the script will try to convert
 
   ![alt text][force_linear]
 
-Note 2: DragonBones doesn't have the "Shear" controls in the interface, so it's impossible the user set X or Y values for the "Shear" effect. But when "json" is generated, DragonBones fill automatically the "shear" keys and curves. To avoid future problems, I decided to delete all the "shear" curves in the ".spinejson" output file, leaving only the "time" keys, since they don't interfere in the final animations.
+Note 2: DragonBones doesn't have the "Shear" controls in the interface. But when "json" is generated, DragonBones automatically creates the "shear" time keys and sometimes puts "curves" in keys without the inclination "x" or "y" key. To avoid future problems, I decided to delete all the "shear" curves in the ".spinejson" output file, leaving only the "time" keys, since they don't interfere in the final animations.
 
  ![alt text][dragonbones_properties]
 

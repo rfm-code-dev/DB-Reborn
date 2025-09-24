@@ -343,10 +343,13 @@ class DbJsonConverter:
                     except (Exception,):
                         attrib_scale = []
 
-                    # Deleting all curves in Shear animations and let only the keyframes times
-                    for key in attributes['shear']:
-                        if 'curve' in key:
-                            del key['curve']
+                    try:
+                        # If there, delete all curves in Shear animations and let only the keyframes times
+                        for key in attributes['shear']:
+                            if 'curve' in key:
+                                del key['curve']
+                    except:
+                        pass
 
                     """
                      >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> BEGIN OF ROTATE CURVE CALCULATION <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -1012,13 +1015,6 @@ if __name__ == "__main__":
     easing = sys.argv[4] # Argument "linear" or "curve"
     # app_dir = os.path.dirname(__file__)
     DbJsonConverter(old_json_path, spinejson_path, sp_version, easing)
-
-    # easing = 'curve'
-    # #easing_type = 'linear'
-    # old_json_path = '/media/HD1TB/Util/Temp/Teste_Dragonbones_Dragao/DB_Test.json'
-    # spinejson_path ='/media/HD1TB/Util/Temp/Teste_Dragonbones_Dragao/DB_Test_curve.spinejson'
-    # sp_version = "4.2.22"
-    # DbJsonConverter(old_json_path, spinejson_path, sp_version, easing)
 
 """
 ################################# END OF ENTER THE SCRIPT ######################################################

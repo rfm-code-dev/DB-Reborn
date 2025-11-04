@@ -1,6 +1,11 @@
 [Read this in English](README.md)
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg )](https://www.gnu.org/licenses/gpl-3.0 )
+<p align="center">
+  <a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3"></a>
+  <a href="https://www.python.org"><img src="https://img.shields.io/badge/python-3.7%2B-3776AB.svg?style=flat&logo=python&logoColor=white" alt="Python Version"></a>
+  <a href="https://github.com/rfm-code-dev/DB-Reborn/releases/"><img src="https://img.shields.io/github/downloads/YOUR_USERNAME/YOUR_REPOSITORY/total" alt="GitHub all releases"></a>
+  <a href="https://github.com/rfm-code-dev/DB-Reborn/commits/main"><img src="https://img.shields.io/github/last-commit/YOUR_USERNAME/YOUR_REPOSITORY" alt="GitHub last commit"></a>
+</p>
 
 # DB Reborn
 

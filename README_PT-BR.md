@@ -4,7 +4,7 @@
 
 ## Introdução
 
-A animação de recorte (*cutout animation*) é uma técnica poderosa no desenvolvimento de jogos, permitindo criar animações ricas e fluidas usando um número pequeno de *sprites*. Isso economiza espaço em disco e melhora a performance em comparação com a animação tradicional quadro a quadro.
+O tipo de animação *cutout animation* é uma técnica poderosa no desenvolvimento de jogos, permitindo criar animações ricas e fluidas usando um número pequeno de *sprites*. Isso economiza espaço em disco e melhora a performance em comparação com a animação tradicional quadro a quadro.
 
 Eu uso a [Game Engine Defold](https://defold.com/), que possui ótimos recursos, mas não tem um editor de animação de recorte integrado. O suporte principal é para arquivos JSON do Spine, através de uma extensão oficial. Como sou um desenvolvedor por hobby e não tenho orçamento para uma licença do Spine, procurei por alternativas gratuitas e encontrei o DragonBones.
 
@@ -28,7 +28,7 @@ Este projeto é uma ferramenta de conversão de formato de arquivo e não possui
 ### 1. Crie sua Animação
 
 - Crie sua animação no **DragonBones 5.6.2**.
-- **Requisitos:** Seu projeto deve conter no mínimo 1 armadura (*armature*), 1 osso (*bone*), 1 *slot* com 1 *skin*, e 1 animação.
+- **Requisitos:** Seu projeto deve conter no mínimo 1 armadura (*armature*), 1 osso (*bone*), 1 *slot* com 1 *skin* e 1 animação.
 
 ### 2. Exporte do DragonBones
 
@@ -47,7 +47,7 @@ Você tem duas opções para rodar a aplicação:
 2. Baixe o executável para Windows ou Linux.
 3. Execute o aplicativo.
 
-**Opção B: Executar a partir do Código-Fonte (para macOS ou usuários avançados)**
+**Opção B: Executar a partir do Código-Fonte (para usuários macOS ou usuários avançados)**
 
 1. Baixe a pasta `Source`.
 
@@ -79,15 +79,22 @@ python3 db_reborn.py "caminho/para/seu.json" "caminho/para/pasta_de_saida" "4.2.
 ### 4. Converta o Arquivo
 
 1. Abra o DB Reborn.
+   
+   ![DB Reborn Main Window](images/1_db_reborn_window.png)
 
 2. Clique no botão "..." para selecionar seu arquivo de entrada `.json`.
    
    *Observação: Após selecionar o  `.json`, o DB Reborn fará verificações no arquivo para ver se ele está de acordo com o padrão para ser convertido corretamente. Três janelas popup irão aparecer em sequência: Uma indicando que o  `.json` está aparentemente OK, outra que foi localizada a pasta  `SEU_ARQUIVO_TEXTURES` e a última, que a pasta contém as imagens do projeto. É só clicar no botão de OK em cada "popup" para prosseguir.*
 
 3. O próximo passo é clicar no segundo botão "..." para selecionar a pasta de saída para o arquivo `.spinejson`.
+    ![DB Reborn Texture Folder](images/2_db_reborn_window_copy_texture_folder.png)
+   
    *Observação: Caso você selecione uma pasta de saída diferente da pasta onde está localizado o `.json`, o DB Reborn vai dar a opção de copiar a pasta `SEU_ARQUIVO_TEXTURES`  para o novo local. É só marcar o "checkbox". Caso  deseje apenas gerar o `.spinejson`, deixe o "checkbox" desmarcado.*
 
 4. Clique em **Converter!**
+   
+![DB Reborn Success](images/3_db_reborn_window_success.png)
+
 
 ### 5. Importe na Defold
 
@@ -101,8 +108,12 @@ python3 db_reborn.py "caminho/para/seu.json" "caminho/para/pasta_de_saida" "4.2.
 ## Problemas Conhecidos e Limitações
 
 - **Curvas de Suavização (Easing):** O script tenta converter as curvas de *easing*. Se sua animação causar um erro fatal (*crash*) na Defold, tente reconverter marcando a caixa **"Force Linear"**. Isso mudará todas as transições para lineares.
+  
+  ![DB Reborn Success](images/4_force_linear.png)
 
 - **Propriedades de Cisalhamento (Shear):** O DragonBones gera automaticamente *keyframes* de "shear" em seu JSON, mesmo sem uma interface para controlá-los. Para prevenir problemas no script, o DB Reborn remove todas as *curvas* de "shear", deixando apenas os *keyframes* de tempo, que não afetam a animação final.
+  
+  ![DB Reborn Success](images/5_dragonbones_properties.png)
 
 ## Suporte e Contribuição
 

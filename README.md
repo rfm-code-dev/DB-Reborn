@@ -1,3 +1,5 @@
+[Read this in Portuguese (Leia em Português)](README_PT-BR.md)
+
 # DB Reborn
 
 ### A tool to convert DragonBones JSON (v3.3) to Spine JSON for the Defold Game Engine.

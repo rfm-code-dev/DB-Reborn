@@ -81,14 +81,17 @@ python3 db_reborn.py "path/to/your.json" "path/to/output_folder" "4.2.22" "ease_
 1. Open DB Reborn.
 
 2. Click the "..." button to select your input `.json` file.
+   ![DB Reborn Main Window](images/1_db_reborn_window.png)
    
    *Note: After selecting the `.json` file, DB Reborn will perform a series of checks to ensure it meets the required standard for a successful conversion. Three pop-up windows will appear in sequence: one indicating that the `.json` file appears to be OK, another confirming that the `YOUR_FILE_TEXTURES` folder was found, and a final one verifying that this folder contains the project's images. Simply click the "OK" button on each pop-up to proceed.*
 
 3. Click the second "..." button to select the output folder for the `.spinejson` file.
+   ![DB Reborn Main Window](images/2_db_reborn_window_copy_texture_folder.png)
    
    *Note: If you choose an output folder different from the one where the input `.json` is located, DB Reborn will offer an option to copy the `YOUR_FILE_TEXTURES` folder to the new location. Just check the corresponding checkbox. If you only wish to generate the `.spinejson` file without copying the textures, leave the checkbox unchecked.*
 
 4. Click **Convert!**
+   ![DB Reborn Main Window](images/3_db_reborn_window_success.png)
 
 ### 5. Import into Defold
 
@@ -102,8 +105,10 @@ python3 db_reborn.py "path/to/your.json" "path/to/output_folder" "4.2.22" "ease_
 ## Known Issues & Limitations
 
 - **Easing Curves:** The script attempts to convert easing curves. If your animation causes Defold to crash, try re-converting with the **"Force Linear"** checkbox enabled. This will change all transitions to be linear.
+  ![DB Reborn Main Window](images/4_force_linear.png)
 
 - **Shear Properties:** DragonBones automatically generates "shear" keyframes in its JSON output, even though there is no interface to control them. To prevent potential issues in Defold, DB Reborn removes all shear *curves*, leaving only the base time keys, which do not affect the final animation.
+  ![DB Reborn Main Window](images/5_dragonbones_properties.png)
 
 ## Support & Contribution
 

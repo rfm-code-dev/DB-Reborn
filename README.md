@@ -1,5 +1,7 @@
 [Read this in Portuguese (Leia em Português)](README_PT-BR.md)
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg )](https://www.gnu.org/licenses/gpl-3.0 )
+
 # DB Reborn
 
 ### A tool to convert DragonBones JSON (v3.3) to Spine JSON for the Defold Game Engine.

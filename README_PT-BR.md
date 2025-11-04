@@ -81,8 +81,11 @@ python3 db_reborn.py "caminho/para/seu.json" "caminho/para/pasta_de_saida" "4.2.
 1. Abra o DB Reborn.
 
 2. Clique no botão "..." para selecionar seu arquivo de entrada `.json`.
+   
+   *Observação: Após selecionar o  `.json`, o DB Reborn fará verificações no arquivo para ver se ele está de acordo com o padrão para ser convertido corretamente. Três janelas popup irão aparecer em sequência: Uma indicando que o  `.json` está aparentemente OK, outra que foi localizada a pasta  `SEU_ARQUIVO_TEXTURES` e a última, que a pasta contém as imagens do projeto. É só clicar no botão de OK em cada "popup" para prosseguir.*
 
-3. Clique no segundo botão "..." para selecionar a pasta de saída para o arquivo `.spinejson`.
+3. O próximo passo é clicar no segundo botão "..." para selecionar a pasta de saída para o arquivo `.spinejson`.
+   *Observação: Caso você selecione uma pasta de saída diferente da pasta onde está localizado o `.json`, o DB Reborn vai dar a opção de copiar a pasta `SEU_ARQUIVO_TEXTURES`  para o novo local. É só marcar o "checkbox". Caso  deseje apenas gerar o `.spinejson`, deixe o "checkbox" desmarcado.*
 
 4. Clique em **Converter!**
 
@@ -99,7 +102,7 @@ python3 db_reborn.py "caminho/para/seu.json" "caminho/para/pasta_de_saida" "4.2.
 
 - **Curvas de Suavização (Easing):** O script tenta converter as curvas de *easing*. Se sua animação causar um erro fatal (*crash*) na Defold, tente reconverter marcando a caixa **"Force Linear"**. Isso mudará todas as transições para lineares.
 
-- **Propriedades de Cisalhamento (Shear):** O DragonBones gera automaticamente *keyframes* de "shear" em seu JSON, mesmo sem uma interface para controlá-los. Para prevenir problemas na Defold, o DB Reborn remove todas as *curvas* de shear, deixando apenas os *keyframes* de tempo, que não afetam a animação final.
+- **Propriedades de Cisalhamento (Shear):** O DragonBones gera automaticamente *keyframes* de "shear" em seu JSON, mesmo sem uma interface para controlá-los. Para prevenir problemas no script, o DB Reborn remove todas as *curvas* de "shear", deixando apenas os *keyframes* de tempo, que não afetam a animação final.
 
 ## Suporte e Contribuição
 

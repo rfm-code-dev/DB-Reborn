@@ -105,9 +105,11 @@ python3 db_reborn.py "path/to/your.json" "path/to/output_folder" "4.2.22" "ease_
 ## Known Issues & Limitations
 
 - **Easing Curves:** The script attempts to convert easing curves. If your animation causes Defold to crash, try re-converting with the **"Force Linear"** checkbox enabled. This will change all transitions to be linear.
+  
   ![DB Reborn Main Window](images/4_force_linear.png)
 
 - **Shear Properties:** DragonBones automatically generates "shear" keyframes in its JSON output, even though there is no interface to control them. To prevent potential issues in Defold, DB Reborn removes all shear *curves*, leaving only the base time keys, which do not affect the final animation.
+  
   ![DB Reborn Main Window](images/5_dragonbones_properties.png)
 
 ## Support & Contribution

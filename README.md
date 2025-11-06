@@ -129,4 +129,12 @@ python3 db_reborn.py "path/to/your.json" "path/to/output_folder" "4.2.22" "ease_
 - For tutorials and updates, visit the [YouTube Channel](https://www.youtube.com/@rfmcodedev).
 - Please report any bugs by sending an email to [rfm.code.dev@gmail.com](mailto:rfm.code.dev@gmail.com).
 
+## ❤️ Support the Project
+
+If this project helped you, consider buying me a coffee! Every little bit helps me dedicate more time to open-source development.
+
+<p align="center">
+  <a href="https://ko-fi.com/rfmcodedev" target="_blank"><img src="https://cdn.ko-fi.com/cdn/kofi3.png?v=3" alt="Buy Me a Coffee at ko-fi.com" height="40"></a>
+</p>
+
 Enjoy!

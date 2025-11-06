@@ -129,4 +129,12 @@ python3 db_reborn.py "caminho/para/seu.json" "caminho/para/pasta_de_saida" "4.2.
 - Para tutoriais e novidades, visite o [Canal no YouTube](https://www.youtube.com/@rfmcodedev).
 - Por favor, reporte qualquer bug enviando um e-mail para [rfm.code.dev@gmail.com](mailto:rfm.code.dev@gmail.com).
 
+## ❤️ Faça uma doação ao Projeto
+
+Se este projeto te ajudou, considere me pagar um café! Cada pequena contribuição me ajuda a dedicar mais tempo ao desenvolvimento de software de código aberto.
+
+<p align="center">
+  <a href="https://ko-fi.com/SEU_USUARIO_KOFI" target="_blank"><img src="https://cdn.ko-fi.com/cdn/kofi3.png?v=3" alt="Buy Me a Coffee at ko-fi.com" height="40"></a>
+</p>
+
 Divirta-se!

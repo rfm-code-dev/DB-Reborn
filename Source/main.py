@@ -5,20 +5,24 @@ import sys, os
 from gc import enable
 
 from PySide6 import QtWidgets, QtGui, QtMultimedia
+from PySide6.QtMultimedia import QAudioOutput
 from PySide6.QtGui import QPixmap, QIcon, QTextFormat, QPalette, QColor, QFont, QFontDatabase
 from PySide6.QtWidgets import QApplication, QFileDialog, QLabel, QLineEdit, QMessageBox, QGraphicsTextItem, QTextEdit
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtCore import QFile, QIODevice, QUrl
+from PySide6.QtCore import QFile, QIODevice, QUrl, QCoreApplication, QSize, Qt
 from PySide6.QtMultimedia import QSoundEffect
-from db_reborn import DbJsonConverter
 from db_reborn import *
-
+import resources_compiled # Import Compiled Resources .qrc from Qt Designer - Fonts
 
 global easing_type
 global old_json_path
 global old_json_file_name
-global new_spinejson
 global spinejson_path
+global sound
+global sound_success
+global sound_ok
+global copy_textures_folder
+copy_textures_folder = False
 
 try:
     from ctypes import windll  # Only exists on Windows.
@@ -27,7 +31,6 @@ try:
     windll.shell32.SetCurrentProcessExplicitAppUserModelID(myapp_id)
 except ImportError:
     pass
-
 
 def exit_app():
     sys.exit()
@@ -47,10 +50,10 @@ help_text = """<html>
   - At least 1 slot with 1 skin.
   - At least 1 animation.
 
-3-Download a copy of DB-Reborn on your PC from the Github
+3-Download a copy of DB Reborn on your PC from the Github
   Project page.
 
-4-Open DB-Reborn. Select the ".json" file (must be in the same folder
+4-Open DB Reborn. Select the ".json" file (must be in the same folder
   of YOUR_FILE_TEXTURES).
 
 5-Select the output folder for the "YOUR_FILE.spinejson".
@@ -81,9 +84,12 @@ Note 2: DragonBones doesn't have the "Shear" controls in the interface,
   output file, leaving only the "time" keys, since they don't
   interfere in the final animations.
 
-For more info and tutorials, visit the <a href='https://www.youtube.com/@rfmcodedev'>YouTube channel</a>
+For more info and tutorials, visit the <a href='https://www.youtube.com/@rfmcodedev' alt="Buy Me a Coffee at ko-fi.com">YouTube channel</a>
 or the <a href='https://github.com/rfm-code-dev/DB-Reborn'>GitHub project</a> page.
 Please report any bugs by <a href="mailto:rfm.code.dev@gmail.com">e-mail</a>.
+
+If this project helped you, consider <a href="https://ko-fi.com/rfmcodedev">buying me a coffee</a>!
+Every little bit helps me dedicate more time to open-source development.
  
 Enjoy!</pre>
 </body>
@@ -105,9 +111,11 @@ License: GNU GENERAL PUBLIC LICENSE Version 3
 congratulation_text = """Success!
 Conversion Completed!"""
 
-check_passed_text = """Json appeared OK!
+check_passed_text_json = """Json appeared OK!
 This Json you selected is compatible
 with Dragonbones Json 3.3 file."""
+
+check_passed_text_texture_folder = """Detected Texture Folder in Place!"""
 
 check_not_passed_text = """Attention:
 This Json you selected is not compatible
@@ -146,18 +154,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self.background = QPixmap(os.path.join(self.app_dir, "images", "background.png"))
         self.window.background.setPixmap(self.background)
 
+        self.setFixedSize(QSize(700, 300))
+
+        # Disable the minimize button
+        #self.window.setWindowFlag(Qt.WindowType.WindowMinimizeButtonHint, False)
+
+        # Disable the maximize button (and implicitly the restore button)
+        self.window.setWindowFlag(Qt.WindowType.WindowMaximizeButtonHint, False)
+
+        #self.window.setWindowFlag(Qt.WindowType.WindowCloseButtonHint, False)
+
         self.input_field = False
         self.output_field = False
-
-        # Alert Sound
-        self.alert = QSoundEffect()
-        self.alert.setSource(QUrl.fromLocalFile(os.path.join(self.app_dir, "sounds", "blip.wav")))
-        self.alert.setVolume(0.5)
-
-        # Success Sound
-        self.success = QSoundEffect()
-        self.success.setSource(QUrl.fromLocalFile(os.path.join(self.app_dir, "sounds", "success.wav")))
-        self.success.setVolume(0.5)
 
         self.converted = ""
 
@@ -169,9 +177,22 @@ class MainWindow(QtWidgets.QMainWindow):
         self.icon_path = os.path.join(self.app_dir, "images", "db_reborn_symbol.png")
         self.icon_pixmap = QPixmap(self.icon_path)
 
+        # Yes and No Icons
+        self.icon_ok_path = os.path.join(self.app_dir, "images", "ok.png")
+        self.icon_no_path = os.path.join(self.app_dir, "images", "no.png")
+
+        self.icon_ok_pixmap = QPixmap(self.icon_ok_path)
+        self.icon_no_pixmap = QPixmap(self.icon_no_path)
+
         #Message Box
         self.about_box = QMessageBox()
         self.help_box =  QMessageBox()
+
+        #Opening Sound
+        filepath_opening = os.path.join(self.app_dir, "sounds", "opening.wav")
+        sound_opening = QSoundEffect(QCoreApplication.instance())
+        sound_opening.setSource(QUrl.fromLocalFile(filepath_opening))
+        sound_opening.play()
 
         #Set Labels fonts
         id = QFontDatabase.addApplicationFont(os.path.join(self.app_dir, "fonts", "OpenSans-Regular.ttf"))
@@ -185,11 +206,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.font_bold.setBold(True)
 
         self.window.text.setFont(self.font_regular)
-        self.window.input_json.setFont(self.font_regular)
+        self.window.input_json.setFont(self.font_bold)
         self.window.json_path.setFont(self.font_regular)
-        self.window.output_spinejson.setFont(self.font_regular)
+        self.window.output_spinejson.setFont(self.font_bold)
         self.window.output_path.setFont(self.font_regular)
-        self.window.spine_version_label.setFont(self.font_regular)
+        self.window.spine_version_label.setFont(self.font_bold)
+        self.window.convert_linear.setFont(self.font_bold)
+        self.window.copy_textures_folder.setFont(self.font_bold)
+        self.window.copy_textures_folder.setVisible(False)
+        self.window.copy_textures_folder.setEnabled(False)
+        copy_textures_folder = False
 
         # Access widgets in the UI
         # Locate Json
@@ -208,6 +234,9 @@ class MainWindow(QtWidgets.QMainWindow):
         # Convert Linear
         self.window.convert_linear.checkStateChanged.connect(self.checked)
 
+        # Copy Textures Folder
+        self.window.copy_textures_folder.checkStateChanged.connect(self.copy_textures_folder)
+
         self.window.help.clicked.connect(self.help)
         self.window.about.clicked.connect(self.about)
 
@@ -221,6 +250,9 @@ class MainWindow(QtWidgets.QMainWindow):
         # Setting up all Message Boxes to the same color layout
         QMessageBox.setStyleSheet(self, "background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
 
+        # Create an Instance to store the images in the Texture folder
+        self.texture_list_folder = []
+
         if not self:
             #print(self.loader.errorString())
             sys.exit(-1)
@@ -231,6 +263,27 @@ class MainWindow(QtWidgets.QMainWindow):
 
         sys.exit(app.exec())
 
+    def play_sound_alert(self):
+        filepath = os.path.join(self.app_dir, "sounds", "blip.wav")
+        global sound
+        sound = QSoundEffect(QCoreApplication.instance())
+        sound.setSource(QUrl.fromLocalFile(filepath))
+        sound.play()
+
+    def play_sound_sucess(self):
+        filepath_success = os.path.join(self.app_dir, "sounds", "success.wav")
+        global sound_success
+        sound_success = QSoundEffect(QCoreApplication.instance())
+        sound_success.setSource(QUrl.fromLocalFile(filepath_success))
+        sound_success.play()
+
+    def play_sound_ok(self):
+        filepath_ok = os.path.join(self.app_dir, "sounds", "ok.wav")
+        global sound_ok
+        sound_ok = QSoundEffect(QCoreApplication.instance())
+        sound_ok.setSource(QUrl.fromLocalFile(filepath_ok))
+        sound_ok.play()
+
     def checked(self):
         global easing_type
         if self.window.convert_linear.isChecked():
@@ -240,12 +293,22 @@ class MainWindow(QtWidgets.QMainWindow):
             easing_type = 'curve'
             #print('curve')
 
+    def copy_textures_folder(self):
+        global copy_textures_folder
+        if self.window.copy_textures_folder.isChecked():
+            copy_textures_folder = True
+            #print("Copy Texture folder")
+        else:
+            copy_textures_folder = False
+            #print("Not Copy Texture folder")
+
     def locate_json(self):
         global old_json_file_name
         global old_json_path
         #print("locate")
         #self.json.delete(0, "end")
-        old_json_path, _ = QFileDialog.getOpenFileName(self, "Open Json", self.app_dir, "Json Files (*.json)")
+        old_json_path, _ = QFileDialog.getOpenFileName(self, "Open Json",
+                                                       self.app_dir, "Json Files (*.json)")
         #print(old_json_path)
         if old_json_path:
             self.window.json_path.setText(old_json_path)
@@ -254,83 +317,202 @@ class MainWindow(QtWidgets.QMainWindow):
             #print(old_json_file_name[0])
             instance_check = DbJsonCheck(old_json_path)
             #print(instance_check.json_state)
+
+            # If Json is OK, proceed next check
             if instance_check.json_state:
-                self.alert.play()
-                QMessageBox.information(self, "Check Json Passed", check_passed_text,
-                                        buttons=QMessageBox.StandardButton.Ok)
+                self.play_sound_ok()
+                msg_box = QMessageBox()
+                msg_box.setWindowTitle("Json Check Passed")
+                msg_box.setText(check_passed_text_json)
+                # Set the custom icon pixmap
+                msg_box.setIconPixmap(self.icon_ok_pixmap)
+                msg_box.StandardButton.Ok
+                msg_box.exec()
+
+                # Store in this var the path of all images found
+                self.texture_list_folder = instance_check.texture_list
+                #print(self.texture_list_folder)
+
                 self.input_field = True
 
-            else:
-                self.alert.play()
-                self.window.json_path.setText(self.default_input_text)
-                QMessageBox.warning(self, "Check Json Failed", check_not_passed_text,
-                                        buttons=QMessageBox.StandardButton.Ok)
-                self.input_field = False
+                # Check if there's a Texture Folder
+                if not instance_check.texture_folder_in_place:
+                    self.play_sound_alert()
+                    # self.alert.play()
+                    no_texture_folder_in_place = ("""Attention: Check if the Texture Folder:\n"""
+                                                  + "'" + instance_check.texture_folder_name + "'\n"
+                                                  + " " + """is in the same place of the JSON file.""")
+                    self.window.json_path.setText(self.default_input_text)
+                    msg_box = QMessageBox()
+                    msg_box.setWindowTitle("No Texture Folder in Place")
+                    msg_box.setText(no_texture_folder_in_place)
+                    # Set the custom icon pixmap
+                    msg_box.setIconPixmap(self.icon_no_pixmap)
+                    msg_box.StandardButton.Ok
+                    msg_box.exec()
+                    self.input_field = False
+                else:
+                    self.play_sound_ok()
+                    msg_box = QMessageBox()
+                    msg_box.setWindowTitle("Texture Folder in Place")
+                    msg_box.setText(check_passed_text_texture_folder)
+                    # Set the custom icon pixmap
+                    msg_box.setIconPixmap(self.icon_ok_pixmap)
+                    msg_box.StandardButton.Ok
+                    msg_box.exec()
+                    self.input_field = True
 
+                # Check if there's images in Texture Folder
+                if not instance_check.images_in_texture_folder:
+                    self.play_sound_alert()
+                    # self.alert.play()
+                    no_images_in_textures_folder = ("""Attention: Check if the Texture Folder:\n"""
+                                                  + "'" + instance_check.texture_folder_name + "'\n"
+                                                  + " " + """has the project images inside.""")
+                    self.window.json_path.setText(self.default_input_text)
+                    msg_box = QMessageBox()
+                    msg_box.setWindowTitle("No Images in Texture Folder")
+                    msg_box.setText(no_images_in_textures_folder)
+                    # Set the custom icon pixmap
+                    msg_box.setIconPixmap(self.icon_no_pixmap)
+                    msg_box.StandardButton.Ok
+                    msg_box.exec()
+                    self.input_field = False
+                else:
+                    self.play_sound_ok()
+                    msg_box = QMessageBox()
+                    msg_box.setWindowTitle("Found Images in Texture Folder")
+                    images_in_textures_folder = ("""Images located in""" + " '" + instance_check.texture_folder_name
+                                                 + "'" """.\n""" 
+                                                 """Now select the Output Folder\nto generate your "spinejson" file.""")
+                    msg_box.setText(images_in_textures_folder)
+                    # Set the custom icon pixmap
+                    msg_box.setIconPixmap(self.icon_ok_pixmap)
+                    msg_box.StandardButton.Ok
+                    msg_box.exec()
+                    self.input_field = True
+
+                    global spinejson_path
+                    folder_path = os.path.dirname(old_json_path)
+                    spinejson_path = folder_path + "/" + old_json_file_name[0] + ".spinejson"
+                    self.window.output_path.setText(spinejson_path)
+                    self.output_field = True
+
+            else:
+                self.play_sound_alert()
+                self.window.json_path.setText(self.default_input_text)
+                msg_box = QMessageBox()
+                msg_box.setWindowTitle("Json Check Failed")
+                msg_box.setText(check_not_passed_text)
+                # Set the custom icon pixmap
+                msg_box.setIconPixmap(self.icon_no_pixmap)
+                msg_box.StandardButton.Ok
+                msg_box.exec()
+                self.input_field = False
         else:
             self.window.json_path.setText(self.default_input_text)
             self.input_field = False
 
-
     def output_spinejson(self):
         global old_json_file_name
-        global new_spinejson
         global spinejson_path
+        global copy_textures_folder
 
+        # If Input field was filled
         if self.input_field:
             spinejson_path = QFileDialog.getExistingDirectory(self, "Spinejson Output")
             if spinejson_path:
+                self.play_sound_ok()
                 spinejson_path = spinejson_path + "/" + old_json_file_name[0] + ".spinejson"
                 self.window.output_path.setText(spinejson_path)
                 self.output_field = True
+                # print(os.path.dirname(old_json_path))
+                # print(os.path.dirname(spinejson_path))
+                
+                # If the input and output paths are not equal, turn on the Copy Textures Folder Checkbox
+                if os.path.dirname(old_json_path) != os.path.dirname(spinejson_path):
+                    self.window.copy_textures_folder.setVisible(True)
+                    self.window.copy_textures_folder.setEnabled(True)
+                    self.window.copy_textures_folder.setChecked(False)
+                    copy_textures_folder = False
             else:
                 self.window.output_path.setText(self.default_output_text)
+                copy_textures_folder = False
         else:
-            self.alert.play()
-
-            QMessageBox.warning(self, "Please Select Json File", select_json_file_first,
-                                buttons=QMessageBox.StandardButton.Ok)
+            self.play_sound_alert()
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("Please Select Json File")
+            msg_box.setText(select_json_file_first)
+            # Set the custom icon pixmap
+            msg_box.setIconPixmap(self.icon_no_pixmap)
+            msg_box.StandardButton.Ok
+            msg_box.exec()
 
     def convert(self):
         global easing_type
         global old_json_path
         global spinejson_path
+        global copy_textures_folder
+        #print(copy_textures_folder)
+        #error_detection = DbJsonConverter.db_error
+        #error_detection_type = DbJsonConverter.db_error_type
 
         if not self.input_field and self.output_field:
-            self.alert.play()
-
-            #if self.window.json_path.text() == "Path to Dragonbones 3.3 Json":
-            QMessageBox.warning(self, "Input Json File Required", empty_input_field,
-                                    buttons=QMessageBox.StandardButton.Ok)
+            self.play_sound_alert()
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("Input Json File Required")
+            msg_box.setText(empty_input_field)
+            # Set the custom icon pixmap
+            msg_box.setIconPixmap(self.icon_no_pixmap)
+            msg_box.StandardButton.Ok
+            msg_box.exec()
 
         if not self.output_field and self.input_field:
-            self.alert.play()
-
-            #self.window.output_path.text() == "Path where to save .spinejson file.":
-            QMessageBox.warning(self, "Output Folder Required", empty_output_field,
-                                    buttons=QMessageBox.StandardButton.Ok)
+            self.play_sound_alert()
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("Output Folder Required")
+            msg_box.setText(empty_output_field)
+            # Set the custom icon pixmap
+            msg_box.setIconPixmap(self.icon_no_pixmap)
+            msg_box.StandardButton.Ok
+            msg_box.exec()
 
         if not self.output_field and not self.input_field:
-            self.alert.play()
+            self.play_sound_alert()
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("Input and Output Folder Required")
+            msg_box.setText(empty_all_fields)
+            # Set the custom icon pixmap
+            msg_box.setIconPixmap(self.icon_no_pixmap)
+            msg_box.StandardButton.Ok
+            msg_box.exec()
 
-            #self.window.output_path.text() == "Path where to save .spinejson file.":
-            QMessageBox.warning(self, "Output Folder Required", empty_all_fields,
-                                    buttons=QMessageBox.StandardButton.Ok)
+        # if error_detection != "":
+        #     self.play_sound_alert()
+        #     msg_box = QMessageBox()
+        #     msg_box.setWindowTitle(error_detection_type)
+        #     msg_box.setText(empty_all_fields)
+        #     # Set the custom icon pixmap
+        #     msg_box.setIconPixmap(self.icon_no_pixmap)
+        #     msg_box.StandardButton.Ok
+        #     msg_box.exec()
 
         if self.output_field and self.input_field:
-            self.success.play()
-
-            # print(old_json_path[0], spinejson_path, easing_type)
+            self.play_sound_sucess()
             self.spine_version = self.window.spine_version_text.text()
             # print(self.spine_version)
-            self.converted = DbJsonConverter(old_json_path, spinejson_path, self.spine_version, easing_type)
-            # DbJsonConverter(old_json_file_path, destiny_path, easing_type)
-            # print(my_instance.file_converted)
-            QMessageBox.information(self, "Conversion Completed", congratulation_text,
-                                    buttons=QMessageBox.StandardButton.Ok)
-            QMessageBox.setStyleSheet(self, "background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
 
-        return self.converted
+            #print(copy_textures_folder)
+            self.converted = DbJsonConverter(old_json_path, spinejson_path, self.spine_version, easing_type,
+                                             copy_textures_folder)
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("Conversion Completed")
+            msg_box.setText(congratulation_text)
+            # Set the custom icon pixmap
+            msg_box.setIconPixmap(self.icon_ok_pixmap)
+            msg_box.StandardButton.Ok
+            msg_box.exec()
+            return self.converted
 
 
     def help(self):
@@ -343,7 +525,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def about(self):
         self.about_box.setIconPixmap(self.icon_pixmap)
-        self.about_box.setWindowTitle("About DB-Reborn")
+        self.about_box.setWindowTitle("About DB Reborn")
         self.about_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
         self.about_box.setText(about_text)
         self.about_box.setStandardButtons(QMessageBox.Ok)
@@ -352,6 +534,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
 if __name__ == "__main__":
     # The default of easing_type is 'curve'
+    copy_texture_folder = False
     easing_type = 'curve'
     app = QtWidgets.QApplication(sys.argv)
     w = MainWindow()

@@ -28,6 +28,11 @@
     <height>300</height>
    </size>
   </property>
+  <property name="font">
+   <font>
+    <family>Open Sans</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>DB Reborn</string>
   </property>
@@ -45,12 +50,17 @@
      <x>500</x>
      <y>260</y>
      <width>171</width>
-     <height>24</height>
+     <height>27</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_5">
     <item>
      <widget class="QPushButton" name="convert">
+      <property name="font">
+       <font>
+        <family>Open Sans</family>
+       </font>
+      </property>
       <property name="toolTip">
        <string>Convert the .json into a .spinejson to use in Defold</string>
       </property>
@@ -61,6 +71,11 @@
     </item>
     <item>
      <widget class="QPushButton" name="exit">
+      <property name="font">
+       <font>
+        <family>Open Sans</family>
+       </font>
+      </property>
       <property name="toolTip">
        <string>Exit DB Reborn</string>
       </property>
@@ -77,16 +92,19 @@
      <x>30</x>
      <y>190</y>
      <width>641</width>
-     <height>23</height>
+     <height>26</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <property name="spacing">
+     <number>3</number>
+    </property>
     <item>
      <widget class="QLabel" name="output_spinejson">
       <property name="maximumSize">
        <size>
-        <width>150</width>
-        <height>16777215</height>
+        <width>153</width>
+        <height>18</height>
        </size>
       </property>
       <property name="palette">
@@ -118,6 +136,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Open Sans</family>
         <bold>true</bold>
        </font>
       </property>
@@ -145,7 +164,7 @@
      <widget class="QLabel" name="output_path">
       <property name="maximumSize">
        <size>
-        <width>16777215</width>
+        <width>456</width>
         <height>18</height>
        </size>
       </property>
@@ -257,6 +276,11 @@
          </colorrole>
         </disabled>
        </palette>
+      </property>
+      <property name="font">
+       <font>
+        <family>Open Sans</family>
+       </font>
       </property>
       <property name="toolTip">
        <string>Path where to save the .spinejson file.</string>
@@ -324,12 +348,17 @@
      <x>28</x>
      <y>260</y>
      <width>168</width>
-     <height>26</height>
+     <height>27</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_4">
     <item>
      <widget class="QPushButton" name="help">
+      <property name="font">
+       <font>
+        <family>Open Sans</family>
+       </font>
+      </property>
       <property name="toolTip">
        <string>Go to Help</string>
       </property>
@@ -344,6 +373,11 @@
     </item>
     <item>
      <widget class="QPushButton" name="about">
+      <property name="font">
+       <font>
+        <family>Open Sans</family>
+       </font>
+      </property>
       <property name="toolTip">
        <string>About</string>
       </property>
@@ -398,8 +432,9 @@
    </property>
    <property name="font">
     <font>
+     <family>Open Sans</family>
      <pointsize>11</pointsize>
-     <bold>true</bold>
+     <bold>false</bold>
      <kerning>true</kerning>
     </font>
    </property>
@@ -412,13 +447,25 @@
     <rect>
      <x>31</x>
      <y>221</y>
-     <width>241</width>
-     <height>24</height>
+     <width>381</width>
+     <height>27</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_3">
+   <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0,0,0,0,0">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="sizeConstraint">
+     <enum>QLayout::SetFixedSize</enum>
+    </property>
     <item>
      <widget class="QLabel" name="spine_version_label">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="maximumSize">
        <size>
         <width>50</width>
@@ -454,6 +501,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Open Sans</family>
         <bold>true</bold>
        </font>
       </property>
@@ -477,13 +525,18 @@
       </property>
      </widget>
     </item>
-    <item alignment="Qt::AlignLeft">
+    <item>
      <widget class="QLineEdit" name="spine_version_text">
       <property name="maximumSize">
        <size>
-        <width>50</width>
+        <width>45</width>
         <height>30</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Open Sans</family>
+       </font>
       </property>
       <property name="toolTip">
        <string>Json Version. Change only if necessary.</string>
@@ -493,11 +546,27 @@
       </property>
      </widget>
     </item>
-    <item alignment="Qt::AlignRight">
+    <item>
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>25</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
      <widget class="QCheckBox" name="convert_linear">
       <property name="maximumSize">
        <size>
-        <width>190</width>
+        <width>95</width>
         <height>30</height>
        </size>
       </property>
@@ -530,8 +599,12 @@
       </property>
       <property name="font">
        <font>
+        <family>Open Sans</family>
         <bold>true</bold>
        </font>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::NoContextMenu</enum>
       </property>
       <property name="toolTip">
        <string>Leave unchecked unless you have problems with &quot;Easing Curve&quot;.</string>
@@ -541,10 +614,90 @@
       </property>
      </widget>
     </item>
+    <item>
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Expanding</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="copy_textures_folder">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>142</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="palette">
+       <palette>
+        <active>
+         <colorrole role="WindowText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>255</red>
+            <green>255</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="ButtonText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>255</red>
+            <green>255</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="WindowText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>255</red>
+            <green>255</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="ButtonText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>255</red>
+            <green>255</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled/>
+       </palette>
+      </property>
+      <property name="font">
+       <font>
+        <family>Open Sans</family>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Copy Texture Folder</string>
+      </property>
+     </widget>
+    </item>
    </layout>
-   <zorder>convert_linear</zorder>
-   <zorder>spine_version_label</zorder>
-   <zorder>spine_version_text</zorder>
   </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
@@ -552,16 +705,19 @@
      <x>30</x>
      <y>160</y>
      <width>641</width>
-     <height>23</height>
+     <height>26</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="spacing">
+     <number>3</number>
+    </property>
     <item>
      <widget class="QLabel" name="input_json">
       <property name="maximumSize">
        <size>
-        <width>128</width>
-        <height>16777215</height>
+        <width>130</width>
+        <height>18</height>
        </size>
       </property>
       <property name="palette">
@@ -593,6 +749,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Open Sans</family>
         <bold>true</bold>
        </font>
       </property>
@@ -614,7 +771,7 @@
      <widget class="QLabel" name="json_path">
       <property name="maximumSize">
        <size>
-        <width>480</width>
+        <width>479</width>
         <height>18</height>
        </size>
       </property>
@@ -727,6 +884,11 @@
         </disabled>
        </palette>
       </property>
+      <property name="font">
+       <font>
+        <family>Open Sans</family>
+       </font>
+      </property>
       <property name="toolTip">
        <string>Path to .json generated from Dragonbones.</string>
       </property>
@@ -772,9 +934,10 @@
  </widget>
  <tabstops>
   <tabstop>button_locate_json</tabstop>
-  <tabstop>convert_linear</tabstop>
   <tabstop>convert</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

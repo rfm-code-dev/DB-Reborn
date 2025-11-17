@@ -1,5 +1,11 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+"""
+DB Reborn 1.0.0 - GUI
+Dragonbones to Spine Converter for Defold
+For use in Defold Extension-Spine 3.6.5
+Compatible with Spine 4.2.22
+"""
 
 import sys, os
 from gc import enable
@@ -98,7 +104,7 @@ Enjoy!</pre>
 about_text = """<html>
 <body>
 <pre style="font-family:verdana;">
-DB Reborn 1.0
+DB Reborn 1.0.0
 .json to .spinejson converter
 
 Developed by:
@@ -147,7 +153,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui_file_name = os.path.join(self.app_dir, "db_ui.ui")
         self.ui_file = QFile(self.ui_file_name)
         self.window = self.loader.load(self.ui_file)
-        self.window.setWindowTitle("DB REBORN 1.0")
+        self.window.setWindowTitle("DB REBORN 1.0.0")
         self.spine_version = "4.2.22"
 
         #Background Window Image

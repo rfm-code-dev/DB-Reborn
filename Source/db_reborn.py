@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 """
-DB Reborn 1.0
+DB Reborn 1.0.0
 Dragonbones to Spine Converter for Defold
 For use in Defold Extension-Spine 3.6.5
 Compatible with Spine 4.2.22
@@ -13,7 +13,6 @@ import os.path
 import sys
 from pathlib import Path
 import shutil
-
 
 """
 ############################# BEGIN OF FUNCTIONS THAT CALC BEZIER CURVE #################################
@@ -97,6 +96,7 @@ class DbJsonCheck:
         except:
             self.json_state = False
 
+
     def check_images_folder(self):
         # Check if there's an image folder with the same name of Json file
         # Check if it's a directory
@@ -166,8 +166,8 @@ class DbJsonConverter:
         with open(self.old_json_file_name, 'r') as file:
             json_data = json.load(file) # The json we will work
 
-        with open(self.old_json_file_name, 'r') as file:
-            old_json_data = json.load(file)  # The json we will get old curve data
+        with open(self.old_json_file_name, 'r') as file_old:
+            old_json_data = json.load(file_old)  # The json we will get old curve data
 
         # Add Spine Version to the file
         json_data['skeleton']['spine'] = self.spine_version
@@ -287,7 +287,6 @@ class DbJsonConverter:
         for path_root in image_roots:
             #print(path_root)
             #print(os.path.basename(path_root))
-
             for file_name in os.listdir(path_root):
                 try:
                     #print(file_name)
@@ -296,17 +295,21 @@ class DbJsonConverter:
                     # Get Each image name in Texture Folder without extension to use in the skins structure
                     image_name = os.path.splitext(file_name)[0]
                     #print(image_name)
+
                     image_size = Image.open(f"{path_root}/{file_name}")
-                    #print(image_size)
+                    #print(image_size.width, image_size.height)
                     folder_name = os.path.basename(path_root)
                     #print(folder_name)
+                    image_size.close()
+
                 except:
                     pass
 
-                # Compare with Images in Folder and add Width and Height for each image in Skins Section
+
+                # Compare Images in Folder and add Width and Height for each image in Skins Section
                 for key in list_of_skins:
                     if image_name != key['name']:
-                        # If the images are inside a folder inside YOUR_CHARACTER_Texture, erase all path names
+                        # If the images are inside a folder YOUR_CHARACTER_Texture, erase all path names
                         original_string = key['name']
                         #print(original_string)
                         file_name_string = os.path.basename(original_string)
@@ -325,9 +328,8 @@ class DbJsonConverter:
                 # If the extension is not in valid images, then exit
                 if ext.lower() not in valid_images:
                     continue
-                imgs.append(Image.open(os.path.join(path_root,file_name)))
-
-
+                with Image.open(os.path.join(path_root,file_name)) as img:
+                    imgs.append(img)
 
 
         temp_json_data = json_data  # Create a copy o json_data to work with

@@ -67,7 +67,7 @@ You have two options to run the application:
    Bash
    
    ```
-   pip install PySide6
+   pip install PySide6 Pillow
    ```
 
 4. You can then run the GUI or use the command line.

@@ -67,7 +67,7 @@ Você tem duas opções para rodar a aplicação:
    Bash
    
    ```
-   pip install PySide6
+   pip install PySide6 Pillow
    ```
 
 4. Você pode então rodar a interface gráfica ou usar a linha de comando.
@@ -101,9 +101,8 @@ python3 db_reborn.py "caminho/para/seu.json" "caminho/para/pasta_de_saida" "4.2.
    *Observação: Caso você selecione uma pasta de saída diferente da pasta onde está localizado o `.json`, o DB Reborn vai dar a opção de copiar a pasta `SEU_ARQUIVO_TEXTURES`  para o novo local. É só marcar o "checkbox". Caso  deseje apenas gerar o `.spinejson`, deixe o "checkbox" desmarcado.*
 
 4. Clique em **Converter!**
-   
-![DB Reborn Success](images/3_db_reborn_window_success.png)
 
+![DB Reborn Success](images/3_db_reborn_window_success.png)
 
 ### 5. Importe na Defold
 

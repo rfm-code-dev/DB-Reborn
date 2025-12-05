@@ -257,16 +257,21 @@ class MainWindow(QtWidgets.QMainWindow):
         self.icon_path = os.path.join(self.app_dir, "images", "db_reborn_symbol.png")
         self.icon_pixmap = QPixmap(self.icon_path)
 
-        # Yes and No Icons
+        # Yes, No and other Icons
         self.icon_ok_path = os.path.join(self.app_dir, "images", "ok.png")
         self.icon_no_path = os.path.join(self.app_dir, "images", "no.png")
+        self.icon_question_path = os.path.join(self.app_dir, "images", "question.png")
+        self.icon_exclamation_path = os.path.join(self.app_dir, "images", "exclamation.png")
 
         self.icon_ok_pixmap = QPixmap(self.icon_ok_path)
         self.icon_no_pixmap = QPixmap(self.icon_no_path)
+        self.icon_question_pixmap = QPixmap(self.icon_question_path)
+        self.icon_exclamation_pixmap = QPixmap(self.icon_exclamation_path)
 
         #Message Box
         self.about_box = QMessageBox()
-        self.help_box =  QMessageBox()
+        self.help_box = QMessageBox()
+        self.overwrite_box = QMessageBox()
 
         #Opening Sound
         filepath_opening = os.path.join(self.app_dir, "sounds", "opening.wav")
@@ -411,10 +416,9 @@ if you do not want to overwrite its contents.
                 msg_box.setWindowTitle("Overwrite Texture Folder")
                 msg_box.setText(overwrite_texture_folder)
                 # Set the custom icon pixmap
-                msg_box.setIconPixmap(self.icon_no_pixmap)
+                msg_box.setIconPixmap(self.icon_exclamation_pixmap)
                 msg_box.StandardButton.Ok
                 msg_box.exec()
-
 
             #print("Copy Texture folder")
         else:
@@ -448,23 +452,24 @@ Attention: Detected a .spinejson file
 </pre>
 </body>
 </html>""")
-            msg_box = QMessageBox.question(
-                self,
-            'Same Output Filename',
-            alert_overwrite,
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.No # Set 'No' as the default button
-            )
+            # msg_box = QMessageBox.question(
+            #     self,
+            # 'Same Output Filename',
+            # alert_overwrite,
+            # QMessageBox.Yes | QMessageBox.No,
+            # QMessageBox.No # Set 'No' as the default button
+            # )
 
-            #msg_box.setWindowTitle("File with same name in place")
-            #msg_box.setText(alert_overwrite)
-            # Set the custom icon pixmap
-            # msg_box.setIconPixmap(self.icon_no_pixmap)
-            #msg_box.StandardButton.Ok
-            #msg_box.exec()
+            self.overwrite_box.setWindowTitle("DB Reborn Help")
+            self.overwrite_box.setText(alert_overwrite)
+            self.overwrite_box.setIconPixmap(self.icon_question_pixmap)
+            self.overwrite_box.setFont(self.font_regular_info)
+            self.overwrite_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
+            self.overwrite_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+            clicked_button = self.overwrite_box.exec()
 
             # If the user decides to overwrite
-            if msg_box == QMessageBox.Yes:
+            if clicked_button == QMessageBox.StandardButton.Yes:
                 self.output_field = True
                 output_ok_write = True
 
@@ -499,11 +504,12 @@ if you do not want to overwrite its contents.
                         msg_box_new.setWindowTitle("Texture Folder Overwrite")
                         msg_box_new.setText(overwrite_texture_folder)
                         # Set the custom icon pixmap
-                        msg_box_new.setIconPixmap(self.icon_no_pixmap)
+                        msg_box_new.setIconPixmap(self.icon_exclamation_pixmap)
                         msg_box_new.StandardButton.Ok
                         msg_box_new.exec()
                         self.input_field = False
-            else:
+
+            elif clicked_button == QMessageBox.StandardButton.No:
                 # If select not overwrite
                 #print("Not Overwrite. Choose another place", self.default_output_text)
                 self.window.output_path.setText(self.default_output_text) 
@@ -562,7 +568,6 @@ Attention: Check if the Texture Folder:
 </pre>
 </body>
 </html>""")
-
                     self.window.json_path.setText(self.default_input_text)
                     msg_box = QMessageBox()
                     msg_box.setWindowTitle("No Texture Folder in Place")

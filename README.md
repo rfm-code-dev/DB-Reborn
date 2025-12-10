@@ -21,6 +21,15 @@ While originally created for the **Defold Game Engine**, DB Reborn is a universa
 *   **DB Reborn is ideal for:** Hobbyists and indie developers looking for a free pipeline to bring DragonBones animations into their chosen game engine.
 *   **For professional work:** If you need advanced features and dedicated support, we highly recommend purchasing a [Spine license](http://esotericsoftware.com/ ).
 
+## Engine Compatibility
+
+DB Reborn generates a standard Spine JSON file, making it compatible with virtually any game engine that has a Spine runtime. The output dropdown allows you to select the correct file extension for your target engine.
+
+*   **`.json` (Default):** For **Godot, Unity, GameMaker, Phaser, Cocos2d-x, LibGDX,** and most other engines.
+*   **`.spinejson` (Specific):** The conventional extension for the **Defold Game Engine**.
+
+If your engine or framework supports Spine JSON, it will work with DB Reborn.
+
 ## **IMPORTANT NOTICE**
 
 This project is a file format conversion tool and is not affiliated with Esoteric Software. The purpose of generating files in the Spine JSON format is to enable interoperability. Please remember that to use the exported animations in your game with the official Spine Runtimes, you and/or your company may need to purchase an appropriate Spine license, in accordance with Esoteric Software's terms of service.

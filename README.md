@@ -55,7 +55,7 @@ You have two options to run the application:
 **Option A: Download the App (Easy Way)**
 
 1. Go to the [Releases page](https://github.com/YOUR_USERNAME/YOUR_REPOSITORY/releases) on GitHub.
-2. Download the executable for Windows or Linux.
+2. Download the executable for Windows, Mac or Linux.
 3. Run the app.
 
 **Option B: Run from Source (for macOS or advanced users)**

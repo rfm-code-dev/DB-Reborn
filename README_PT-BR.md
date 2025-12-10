@@ -93,14 +93,14 @@ python3 db_reborn.py "caminho/para/seu.json" "caminho/para/pasta_de_saida" "4.2.
    
    ![DB Reborn Main Window](images/1_db_reborn_window.png)
 
-2. Clique no botão "..." para selecionar seu arquivo de entrada `.json`.
+2. Clique no botão "..." para selecionar seu arquivo de entrada `.json` 3.3 gerado do Dragonbones.
    
    *Observação: Após selecionar o  `.json`, o DB Reborn fará verificações no arquivo para ver se ele está de acordo com o padrão para ser convertido corretamente. Três janelas popup irão aparecer em sequência: Uma indicando que o  `.json` está aparentemente OK, outra que foi localizada a pasta  `SEU_ARQUIVO_TEXTURES` e a última, que a pasta contém as imagens do projeto. É só clicar no botão de OK em cada "popup" para prosseguir.*
 
-3. O próximo passo é clicar no segundo botão "..." para selecionar a pasta de saída para o arquivo `.spinejson`.
+3. O próximo passo é clicar no segundo botão "..." para selecionar a pasta de saída e o arquivo de saída. Escolha a extensão para o arquivo (`.json` ou `.spinejson`).
     ![DB Reborn Texture Folder](images/2_db_reborn_window_copy_texture_folder.png)
    
-   *Observação: Caso você selecione uma pasta de saída diferente da pasta onde está localizado o `.json`, o DB Reborn vai dar a opção de copiar a pasta `SEU_ARQUIVO_TEXTURES`  para o novo local. É só marcar o "checkbox". Caso  deseje apenas gerar o `.spinejson`, deixe o "checkbox" desmarcado.*
+   *Observação: Caso você selecione uma pasta de saída diferente da pasta onde está localizado o `.json`, o DB Reborn irá tornar a checkbox 'Copy Texture Folder' ativa, fornecendo a opção de copiar a pasta `SEU_ARQUIVO_TEXTURES` para o novo local. É só marcar o "checkbox". Caso deseje apenas gerar o `.json` ou `.spinejson`, deixe o "checkbox" desmarcado.*
 
 4. Clique em **Converter!**
 

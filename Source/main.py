@@ -14,20 +14,21 @@ from pathlib import Path
 from PySide6 import QtWidgets, QtGui, QtMultimedia
 from PySide6.QtMultimedia import QAudioOutput
 from PySide6.QtGui import QPixmap, QIcon, QTextFormat, QPalette, QColor, QFont, QFontDatabase
-from PySide6.QtWidgets import QApplication, QFileDialog, QLabel, QLineEdit, QMessageBox, QGraphicsTextItem, QTextEdit
+from PySide6.QtWidgets import (QApplication, QFileDialog, QLabel, QLineEdit, QMessageBox, QGraphicsTextItem, QTextEdit,
+                               QRadioButton)
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import QFile, QIODevice, QUrl, QCoreApplication, QSize, Qt
 from PySide6.QtMultimedia import QSoundEffect
+from wx.py.editor import directory
+
 from db_reborn import *
 import resources_compiled # Import Compiled Resources .qrc from Qt Designer - Fonts
 
 global easing_type
 global old_json_path
 global old_json_file_name
-global spinejson_path
-spinejson_path = ""
-global spinejson_path_file
-spinejson_path_file = ""
+global output_path
+output_path = ""
 global sound
 global sound_success
 global sound_ok
@@ -62,6 +63,7 @@ How to Export Animations
 </pre>
 <pre style="font-family: Helvetica-Regular; font-size: 11px; font-weight: 100;">
 1-Create your animation in DragonBones 5.6.2.
+
 2-Export it as JSON 3.3 with images in 100% of the size in a folder.
   After export, you will get the YOUR_FILE.json and a folder called
   YOUR_FILE_TEXTURES with your character images inside.
@@ -78,33 +80,32 @@ How to Export Animations
 4-Open DB Reborn. Select the '.json' file (must be in the same folder
   of YOUR_FILE_TEXTURES).
 
-5-Select the output folder for the 'YOUR_FILE.spinejson'.
+5-Select the output folder for the 'YOUR_FILE.json'
+  or 'YOUR_FILE.spinejson'.
 
 6-Click 'Convert!' and let the app process the file.
 
-7-Copy “YOUR_FILE.spinejson” and the 'YOUR_FILE_TEXTURES' folder
-  to your Defold project folder.
+7-Copy 'YOUR_FILE.json' or 'YOUR_FILE.spinejson' and the
+  'YOUR_FILE_TEXTURES' folder to your game project folder.
 
-8-When Defold opens, do the following:
-  - Install the dependencies for Defold Spine (3.6.5) in game.project.
-  - Create an Atlas texture and import all images of YOUR_FILE_TEXTURES.
-  - Create a 'Spine Scene' and choose 'YOUR_FILE.spinejson' and Atlas.
-  - Create a Game Object > Add Component > Spine Model. Select the
-    Default Animation.
-  - Create a script to play the animation and see the result.
+8-Import the files to your project, create a script to play
+  the animation and see the result.
 
 <u>Note 1</u>: If your animation has easy in/out curves, the script will try
-  to convert the curve values. If somehow Defold crashes, check
+  to convert the curve values. If somehow the animation not work, check
   'Force Linear' to turn all ease curve animations to linear
   ease animations.
 
 <u>Note 2</u>: DragonBones doesn't have the 'Shear' controls in the interface,
   so it's impossible for the user to put X or Y values for the 'Shear'
   effect. But somehow DragonBones automatically generates the 'Shear'
-  keys and curves in the output 'json'. ontTo avoid future problems,
-  I decided to delete all the 'shear' curves in the '.spinejson'
-  output file, leaving only the 'time' keys, since they don't
-  interfere in the final animations.
+  keys and curves in the output 'json'. To avoid future problems,
+  I decided to delete all the 'shear' curves in the generated output
+  file, leaving only the 'time' keys, since they don't interfere
+  in the final animations.
+
+<u>Note 3</u>: DB Reborn was tested in Defold Game Engine. So if you
+  use another game engine, please test simple animations first.
 
 For more info and tutorials, visit the <a href='https://www.youtube.com/@rfmcodedev' alt='Buy Me a Coffee at ko-fi.com'>YouTube channel</a>
 or the <a href='https://github.com/rfm-code-dev/DB-Reborn'>GitHub project</a> page.
@@ -122,12 +123,12 @@ about_text = about_text = """<html>
 <body>
 <pre style="font-family: Helvetica-Regular; font-size: 13px; font-weight: 400;">
 DB Reborn 1.0.0
-.json to .spinejson converter
+Dragonbones .json file updater
 </pre>
 
 <pre style="font-family: Helvetica-Regular; font-size: 11px; font-weight: 100; ">
 Developed by:
-Copyright © 2025 Rodrigo Fontanella Machado
+Copyright © 2026 Rodrigo Fontanella Machado
 
 License: GNU GENERAL PUBLIC LICENSE Version 3
 </pre>
@@ -186,7 +187,7 @@ empty_output_field = """<html>
 <body>
 <pre style="font-family: Helvetica-Regular; font-size: 11px; font-weight: 400; color: #FFFFFF; ">
 Attention:
-Empty Spinejson file output field.
+Empty file output field. 
 Please choose a valid output folder
 to continue.
 </pre>
@@ -272,6 +273,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.about_box = QMessageBox()
         self.help_box = QMessageBox()
         self.overwrite_box = QMessageBox()
+        self.copy_texture_folder_box = QMessageBox()
 
         #Opening Sound
         filepath_opening = os.path.join(self.app_dir, "sounds", "opening.wav")
@@ -316,7 +318,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.window.exit.setFont(self.font_regular)
 
         self.window.copy_textures_folder.setVisible(True)
-        self.window.copy_textures_folder.setEnabled(True)
+        self.window.copy_textures_folder.setEnabled(False)
         copy_textures_folder = False
 
         # Access widgets in the UI
@@ -324,11 +326,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.window.button_locate_json.clicked.connect(self.locate_json)
 
         self.default_input_text = self.window.json_path.text()
-        self.default_output_text = self.window.output_path.text()
         #print(self.window.json_path.text())
 
         # Path to spinejson output
         self.window.button_output_spinejson.clicked.connect(self.output_spinejson)
+
+        # Copy the default field text to use later
+        self.default_output_text = self.window.output_path.text()
 
         # Spine Version
         self.window.spine_version_text.setText(self.spine_version)
@@ -337,8 +341,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.window.convert_linear.checkStateChanged.connect(self.checked)
 
         # Copy Textures Folder
-        self.window.copy_textures_folder.checkStateChanged.connect(self.copy_textures_folder)
+        #self.window.copy_textures_folder.checkStateChanged.connect(self.copy_textures_folder)
+        self.window.copy_textures_folder.stateChanged.connect(self.copy_textures_folder)
 
+        # Help/About Buttons
         self.window.help.clicked.connect(self.help)
         self.window.about.clicked.connect(self.about)
 
@@ -364,6 +370,7 @@ class MainWindow(QtWidgets.QMainWindow):
             sys.exit(-1)
 
         sys.exit(app.exec())
+
 
     def play_sound_alert(self):
         filepath = os.path.join(self.app_dir, "sounds", "blip.wav")
@@ -397,11 +404,34 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def copy_textures_folder(self):
         global copy_textures_folder
-        if self.window.copy_textures_folder.isChecked():
-            copy_textures_folder = True
-            if self.input_field and self.output_field:
+        global output_path
+        global old_json_path
+        global conflict_overwrite
+
+        if self.input_field and self.output_field:
+            # if state == Qt.Checked.value:
+            #     print("Selected")
+            # elif state == Qt.Unchecked.value:
+            #     print("unselected")
+
+            #Test if is checked
+            if self.window.copy_textures_folder.isChecked():
+                copy_textures_folder = True
                 instance_check = DbJsonCheck(old_json_path)
-                overwrite_texture_folder = (
+                full_path_textures_folder = os.path.join(os.path.dirname(output_path),
+                                                         instance_check.texture_folder_name)
+                # print(full_path_textures_folder)
+                #Test if the texture folder is in the output directory
+                for item in os.listdir(os.path.dirname(output_path)):
+                    full_path = os.path.join(os.path.dirname(output_path), item)
+                    #print(full_path)
+                    # Check if the full path is a directory and matches the name
+                    #if os.path.isdir(full_path) and item_name == instance_check:
+                    if os.path.isdir(full_path):
+                        #print("Folders in place", full_path, full_path_textures_folder)
+                        # If there's the same folder in place, show alert
+                        if full_path == full_path_textures_folder:
+                            overwrite_texture_folder = (
 """<html>
 <body>
 <pre style="font-family: Helvetica-Regular; font-size: 11px; font-weight: 400; color: #FFFFFF; ">
@@ -412,111 +442,137 @@ if you do not want to overwrite its contents.
 </pre>
 </body>
 </html>""")
-                msg_box = QMessageBox()
-                msg_box.setWindowTitle("Overwrite Texture Folder")
-                msg_box.setText(overwrite_texture_folder)
-                # Set the custom icon pixmap
-                msg_box.setIconPixmap(self.icon_exclamation_pixmap)
-                msg_box.StandardButton.Ok
-                msg_box.exec()
+                            self.copy_texture_folder_box.setWindowTitle("Overwrite Texture Folder")
+                            self.copy_texture_folder_box.setText(overwrite_texture_folder)
+                            self.copy_texture_folder_box.setIconPixmap(self.icon_question_pixmap)
+                            self.copy_texture_folder_box.setFont(self.font_regular_info)
+                            self.copy_texture_folder_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
+                            self.copy_texture_folder_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+                            clicked_button = self.copy_texture_folder_box.exec()
 
-            #print("Copy Texture folder")
+                            # If the user decides to overwrite spinejson file
+                            if clicked_button == QMessageBox.StandardButton.Yes:
+                                copy_textures_folder = True
+                                self.window.copy_textures_folder.setChecked(True)
+                                conflict_overwrite = False
+                                return True
+                            elif clicked_button == QMessageBox.StandardButton.No:
+                                conflict_overwrite = False
+                                copy_textures_folder = False
+                                self.window.copy_textures_folder.setChecked(False)
+                                return False
         else:
             copy_textures_folder = False
             #print("Not Copy Texture folder")
 
     def check_overwrite(self):
         global copy_textures_folder
-        global spinejson_path
-        global spinejson_path_file
+        global output_path
         global old_json_file_name
         global old_json_path
         global output_ok_write
         global conflict_overwrite
 
-        spinejson_path_archive = Path(spinejson_path_file)
-        #print(spinejson_path_file)
-        # If there's conflict with same file names
-        if spinejson_path_archive.is_file():
+        output_path_archive = Path(output_path)
+        # If there's conflict with same file name or testure folder name
+        if output_path_archive.is_file():
+            # print(os.path.basename(output_path))
+            # print(os.path.basename(old_json_path))
+
             conflict_overwrite = True
-            #print("Conflict Overwrite?", conflict_overwrite)
+            # print("Conflict Overwrite?", conflict_overwrite)
             self.play_sound_alert()
-            # self.alert.play()
-            alert_overwrite = (
+
+            # Test if the output files have .json extension
+            #Json conflict - cannot overwrite
+            if output_path == old_json_path:
+                alert_overwrite_original_json = (
+"""<html>
+<body>
+<pre style="font-family: Helvetica-Regular; font-size: 11px; font-weight: 400; color: #FFFFFF; ">
+Attention: You cannot overwrite the
+original .json file """ + "'" + os.path.basename(old_json_path) + "'.\n"
++ """Please change the output folder
+or choose another filename.
+</pre>
+</body>
+</html>""")
+                self.overwrite_box.setWindowTitle("Cannot Overwrite File")
+                self.overwrite_box.setText(alert_overwrite_original_json)
+                self.overwrite_box.setIconPixmap(self.icon_no_pixmap)
+                self.overwrite_box.setFont(self.font_regular_info)
+                self.overwrite_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
+                self.overwrite_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+                clicked_button = self.overwrite_box.exec()
+
+                if clicked_button == QMessageBox.StandardButton.Ok:
+                    self.output_field = False
+                    output_ok_write = False
+                    self.window.output_path.setText(self.default_output_text)
+            # Spinejson conflict - can overwrite
+            else:
+                alert_overwrite_spinejson = (
 """<html>
 <body>
 <pre style="font-family: Helvetica-Regular; font-size: 11px; font-weight: 400; color: #FFFFFF; ">
 Attention: Detected a .spinejson file
-""" + "'" + spinejson_path_archive.name + "'\n"
-+ " " + """with the same name. Replace it?.
+""" + "'" + output_path_archive.name + "'\n"
++ " " + """with the same name. Replace it?
 </pre>
 </body>
 </html>""")
-            # msg_box = QMessageBox.question(
-            #     self,
-            # 'Same Output Filename',
-            # alert_overwrite,
-            # QMessageBox.Yes | QMessageBox.No,
-            # QMessageBox.No # Set 'No' as the default button
-            # )
-
-            self.overwrite_box.setWindowTitle("DB Reborn Help")
-            self.overwrite_box.setText(alert_overwrite)
-            self.overwrite_box.setIconPixmap(self.icon_question_pixmap)
-            self.overwrite_box.setFont(self.font_regular_info)
-            self.overwrite_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
-            self.overwrite_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
-            clicked_button = self.overwrite_box.exec()
-
-            # If the user decides to overwrite
-            if clicked_button == QMessageBox.StandardButton.Yes:
-                self.output_field = True
-                output_ok_write = True
-
-                # Turn False the conflict var to write over the .spinejson file in folder
-                conflict_overwrite = False
-
-                # Get the texture name folder
-                texture_name = DbJsonCheck(old_json_path)
-                texture_folder_path = (Path(spinejson_path) / texture_name.texture_folder_name)
-
-                #print(texture_folder_path)
-                #texture_folder = Path(str(texture_name.texture_folder_name))
-                #print(texture_folder)
-                # Is Copy texture folder is selected and there is a sema folder there an warning appear
-                instance_check = DbJsonCheck(old_json_path)
-                if texture_folder_path.is_dir():
-                    if copy_textures_folder:
-                        self.play_sound_alert()
-                        # self.alert.play()
-                        overwrite_texture_folder = (
+                alert_overwrite_json = (
 """<html>
 <body>
 <pre style="font-family: Helvetica-Regular; font-size: 11px; font-weight: 400; color: #FFFFFF; ">
-<b>Attention</b>: Do you really want to replace the Texture Folder
-""" + "'" + instance_check.texture_folder_name + "'? This action cannot be undone\n"
-+ """after pressing 'Convert'. Uncheck 'Copy Texture Folder'
-if you do not want to overwrite its contents.
+Attention: Detected a .json file
+""" + "'" + output_path_archive.name + "'\n"
++ " " + """with the same name. Replace it?
 </pre>
 </body>
 </html>""")
-                        msg_box_new = QMessageBox()
-                        msg_box_new.setWindowTitle("Texture Folder Overwrite")
-                        msg_box_new.setText(overwrite_texture_folder)
-                        # Set the custom icon pixmap
-                        msg_box_new.setIconPixmap(self.icon_exclamation_pixmap)
-                        msg_box_new.StandardButton.Ok
-                        msg_box_new.exec()
-                        self.input_field = False
 
-            elif clicked_button == QMessageBox.StandardButton.No:
-                # If select not overwrite
-                #print("Not Overwrite. Choose another place", self.default_output_text)
-                self.window.output_path.setText(self.default_output_text) 
-                output_ok_write = False
-                self.output_field = False
-                # The var persists ON
-                conflict_overwrite = True
+                self.overwrite_box.setWindowTitle("Overwrite File")
+                file = Path(os.path.basename(output_path))
+                extension = file.suffix
+                # print(extension)
+                if extension == '.json':
+                    self.overwrite_box.setText(alert_overwrite_json)
+                elif extension == '.spinejson':
+                    self.overwrite_box.setText(alert_overwrite_spinejson)
+
+                self.overwrite_box.setIconPixmap(self.icon_exclamation_pixmap)
+                self.overwrite_box.setFont(self.font_regular_info)
+                self.overwrite_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
+                self.overwrite_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+                clicked_button = self.overwrite_box.exec()
+
+                # If the user decides to overwrite spinejson file
+                if clicked_button == QMessageBox.StandardButton.Yes:
+                    self.output_field = True
+                    output_ok_write = True
+                    # Turn False the conflict var to write over the output file in folder
+                    conflict_overwrite = False
+
+                    # Get the texture name folder
+                    texture_name = DbJsonCheck(old_json_path)
+                    texture_folder_path = (Path(output_path) / texture_name.texture_folder_name)
+                    #print(texture_folder_path)
+                    #texture_folder = Path(str(texture_name.texture_folder_name))
+                    #print(texture_folder)
+
+                    # If Copy texture folder is selected and there is a same folder there an warning appear
+                    # Execute function to test the overwrite the textures folder
+                    self.copy_textures_folder()
+
+                elif clicked_button == QMessageBox.StandardButton.No:
+                    # If select not overwrite
+                    #print("Not Overwrite. Choose another place", self.default_output_text)
+                    self.window.output_path.setText(self.default_output_text)
+                    output_ok_write = False
+                    self.output_field = False
+                    # The var persists ON
+                    conflict_overwrite = True
         else:
             conflict_overwrite = False
             output_ok_write = True
@@ -527,8 +583,9 @@ if you do not want to overwrite its contents.
         global old_json_path
         #print("locate")
         #self.json.delete(0, "end")
+        options = QFileDialog.Option.DontUseNativeDialog
         old_json_path, _ = QFileDialog.getOpenFileName(self, "Open Json",
-                                                       str(self.app_dir), "Json Files (*.json)")
+                                                       str(self.app_dir), "Json Files (*.json)", options=options)
         if old_json_path:
             self.window.json_path.setText(old_json_path)
             old_json_file_name = os.path.basename(old_json_path)
@@ -620,7 +677,7 @@ Attention: Check if the Texture Folder:
 <body>
 <pre style="font-family: Helvetica-Regular; font-size: 11px; font-weight: 400; color: #FFFFFF; ">
 Images located in """ + "'" + instance_check.texture_folder_name + "'" """.
-Now select the Output Folder\nto generate your "spinejson" file.
+Now select the Output Folder\nto generate your file.
 </pre>
 </body>
 </html>""")
@@ -647,23 +704,42 @@ Now select the Output Folder\nto generate your "spinejson" file.
 
     def output_spinejson(self):
         global old_json_file_name
-        global spinejson_path
+        global old_json_path
+        global output_path
         global copy_textures_folder
         global output_ok_write
         global conflict_overwrite
-        global spinejson_path_file
 
         # If Input field was filled
         if self.input_field:
-            spinejson_path = QFileDialog.getExistingDirectory(self, "Spinejson Output")
+            #output_path = QFileDialog.getExistingDirectory(self, "Spinejson Output")
+            directory_path = os.path.dirname(old_json_path)
+            dialog = QFileDialog(self)
+            dialog.setAcceptMode(QFileDialog.AcceptSave)
+            # dialog.setOption(QFileDialog.Option.DontConfirmOverwrite, True)
+            # dialog.setOption(QFileDialog.Option.DontUseNativeDialog, True)
+            options = QFileDialog.Option.DontConfirmOverwrite | QFileDialog.Option.DontUseNativeDialog
 
+            output_path, selected_filter = dialog.getSaveFileName(self, "Spinejson Output", directory_path,
+                                                      "Json File (*.json);;Spinejson File (*.spinejson)",
+                                                                  options=options)
+
+            #print(output_path, selected_filter)
             # If the user cancel the window, returns the default text
-            if spinejson_path == "":
+            if output_path == "":
                 self.window.output_path.setText(self.default_output_text)
                 self.output_field = False
             else:
-                spinejson_path_file = spinejson_path + "/" + old_json_file_name[0] + ".spinejson"
-                #print(spinejson_path, spinejson_path_file)
+                #print(os.path.splitext(os.path.basename(output_path))[0])
+                # Get the name of chosen file
+                name_file = os.path.splitext(os.path.basename(output_path))[0]
+                # Get the base Dir Name
+                output_path = os.path.dirname(output_path)
+                if selected_filter == "Spinejson File (*.spinejson)":
+                    output_path = output_path + "/" + name_file + ".spinejson"
+
+                elif selected_filter == "Json File (*.json)":
+                    output_path = output_path + "/" + name_file + ".json"
 
                 # Call function to check overwrite conflicts
                 self.check_overwrite()
@@ -671,14 +747,17 @@ Now select the Output Folder\nto generate your "spinejson" file.
                 # If the output folder is OK, add the .spinejson filename to path
                 if output_ok_write:
                     self.play_sound_ok()
-                    self.window.output_path.setText(spinejson_path_file)
+                    self.window.output_path.setText(output_path)
                     self.output_field = True
+
+                    # Activate Texture Folder Checkbox
+                    self.window.copy_textures_folder.setEnabled(True)
+
                     # print(os.path.dirname(old_json_path))
-                    # print(os.path.dirname(spinejson_path))
+                    # print(os.path.dirname(output_path))
                 else:
-                    spinejson_path = ""
-                    spinejson_path_file = ""
-                #print("Output Selected?", output_ok_write, "Conflict?", conflict_overwrite, spinejson_path)
+                    output_path = ""
+                #print("Output Selected?", output_ok_write, "Conflict?", conflict_overwrite, output_path)
         else:
             self.play_sound_alert()
             msg_box = QMessageBox()
@@ -692,8 +771,7 @@ Now select the Output Folder\nto generate your "spinejson" file.
     def convert(self):
         global easing_type
         global old_json_path
-        global spinejson_path
-        global spinejson_path_file
+        global output_path
         global copy_textures_folder
         global output_ok_write
         global conflict_overwrite
@@ -740,27 +818,27 @@ Now select the Output Folder\nto generate your "spinejson" file.
             # If after generate .spinejson the user try again, check conflict
             if conflict_overwrite:
                 self.check_overwrite()
+            else:
+                if output_ok_write:
+                    self.play_sound_sucess()
+                    self.spine_version = self.window.spine_version_text.text()
+                    # print(self.spine_version)
+                    #print(copy_textures_folder)
+                    self.converted = DbJsonConverter(old_json_path, output_path, self.spine_version, easing_type,
+                                                     copy_textures_folder)
+                    msg_box = QMessageBox()
+                    msg_box.setWindowTitle("Conversion Completed")
+                    msg_box.setText(congratulation_text)
+                    # Set the custom icon pixmap
+                    msg_box.setIconPixmap(self.icon_ok_pixmap)
+                    msg_box.StandardButton.Ok
+                    msg_box.exec()
 
-            if output_ok_write:
-                self.play_sound_sucess()
-                self.spine_version = self.window.spine_version_text.text()
-                # print(self.spine_version)
-                #print(copy_textures_folder)
-                self.converted = DbJsonConverter(old_json_path, spinejson_path_file, self.spine_version, easing_type,
-                                                 copy_textures_folder)
-                msg_box = QMessageBox()
-                msg_box.setWindowTitle("Conversion Completed")
-                msg_box.setText(congratulation_text)
-                # Set the custom icon pixmap
-                msg_box.setIconPixmap(self.icon_ok_pixmap)
-                msg_box.StandardButton.Ok
-                msg_box.exec()
-
-                # Once the .spinejson is created, turn output_ok_write var to False and conflict_overwrite True
-                output_ok_write = False
-                conflict_overwrite = True
-                # print("CONVERT: Output Selected?", output_ok_write, "Conflict?", conflict_overwrite, spinejson_path)
-                return self.converted
+                    # Once the .spinejson is created, turn output_ok_write var to False and conflict_overwrite True
+                    output_ok_write = False
+                    conflict_overwrite = True
+                    # print("CONVERT: Output Selected?", output_ok_write, "Conflict?", conflict_overwrite, output_path)
+                    return self.converted
 
     def help(self):
         #QMessageBox.about(self,"DB Reborn Help", help_text)

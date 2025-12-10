@@ -97,7 +97,7 @@
        <widget class="QLabel" name="input_json">
         <property name="maximumSize">
          <size>
-          <width>124</width>
+          <width>122</width>
           <height>18</height>
          </size>
         </property>
@@ -169,13 +169,13 @@
        <widget class="QLabel" name="json_path">
         <property name="minimumSize">
          <size>
-          <width>500</width>
+          <width>502</width>
           <height>20</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>500</width>
+          <width>502</width>
           <height>20</height>
          </size>
         </property>
@@ -310,7 +310,10 @@
          <number>1</number>
         </property>
         <property name="text">
-         <string>Path to Dragonbones 3.3 Json file</string>
+         <string>Path to Dragonbones 3.3 .json file</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
         </property>
         <property name="margin">
          <number>4</number>
@@ -348,7 +351,7 @@
          </font>
         </property>
         <property name="toolTip">
-         <string>Click to find .json file to convert.</string>
+         <string>Click to choose the .json file.</string>
         </property>
         <property name="autoFillBackground">
          <bool>false</bool>
@@ -369,7 +372,7 @@
        <widget class="QLabel" name="output_spinejson">
         <property name="maximumSize">
          <size>
-          <width>144</width>
+          <width>75</width>
           <height>18</height>
          </size>
         </property>
@@ -420,7 +423,7 @@
          <enum>QFrame::NoFrame</enum>
         </property>
         <property name="text">
-         <string>2-Output File (.spinejson):</string>
+         <string>2-Output File:</string>
         </property>
        </widget>
       </item>
@@ -444,14 +447,14 @@
        <widget class="QLabel" name="output_path">
         <property name="minimumSize">
          <size>
-          <width>480</width>
+          <width>549</width>
           <height>20</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>480</width>
-          <height>18</height>
+          <width>549</width>
+          <height>20</height>
          </size>
         </property>
         <property name="palette">
@@ -570,7 +573,7 @@
          </font>
         </property>
         <property name="toolTip">
-         <string>Folder where to save the .spinejson file.</string>
+         <string>Folder where to save the *.json or *.spinejson file.</string>
         </property>
         <property name="autoFillBackground">
          <bool>false</bool>
@@ -579,7 +582,10 @@
          <string notr="true">background-color: rgb(100, 100, 100);</string>
         </property>
         <property name="text">
-         <string>Folder where to save the *.spinejson file</string>
+         <string>Where to save the *.json or *.spinejson file</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
         </property>
         <property name="margin">
          <number>4</number>
@@ -617,7 +623,7 @@
          </font>
         </property>
         <property name="toolTip">
-         <string>Click to choose the output folder to save the .spinejson file.</string>
+         <string>Click to choose where to save the .json or .spinejson file.</string>
         </property>
         <property name="text">
          <string>...</string>
@@ -640,14 +646,20 @@
       <item>
        <widget class="QLabel" name="spine_version_label">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="minimumSize">
+         <size>
+          <width>45</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
-          <width>47</width>
+          <width>45</width>
           <height>30</height>
          </size>
         </property>
@@ -704,9 +716,21 @@
       </item>
       <item>
        <widget class="QLineEdit" name="spine_version_text">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>42</width>
+          <height>20</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
-          <width>45</width>
+          <width>42</width>
           <height>20</height>
          </size>
         </property>
@@ -742,9 +766,15 @@
       </item>
       <item>
        <widget class="QCheckBox" name="convert_linear">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="maximumSize">
          <size>
-          <width>90</width>
+          <width>87</width>
           <height>30</height>
          </size>
         </property>
@@ -760,9 +790,45 @@
              </color>
             </brush>
            </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>255</red>
+              <green>255</green>
+              <blue>255</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="ButtonText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>255</red>
+              <green>255</green>
+              <blue>255</blue>
+             </color>
+            </brush>
+           </colorrole>
           </active>
           <inactive>
            <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>255</red>
+              <green>255</green>
+              <blue>255</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>255</red>
+              <green>255</green>
+              <blue>255</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="ButtonText">
             <brush brushstyle="SolidPattern">
              <color alpha="255">
               <red>255</red>
@@ -803,7 +869,7 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>16</width>
+          <width>22</width>
           <height>20</height>
          </size>
         </property>
@@ -814,9 +880,15 @@
         <property name="enabled">
          <bool>true</bool>
         </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="maximumSize">
          <size>
-          <width>130</width>
+          <width>128</width>
           <height>30</height>
          </size>
         </property>
@@ -882,9 +954,12 @@
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>280</width>
+          <width>285</width>
           <height>20</height>
          </size>
         </property>
@@ -987,9 +1062,12 @@
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>140</width>
+            <width>180</width>
             <height>20</height>
            </size>
           </property>
@@ -1007,9 +1085,12 @@
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>140</width>
+            <width>180</width>
             <height>20</height>
            </size>
           </property>
@@ -1162,7 +1243,7 @@
        <bool>true</bool>
       </property>
       <property name="text">
-       <string>Dragonbones 3.3 .json to .spinejson converter.</string>
+       <string>Dragonbones 3.3 .json file updater.</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

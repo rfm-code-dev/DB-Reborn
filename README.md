@@ -91,17 +91,17 @@ python3 db_reborn.py "path/to/your.json" "path/to/output_folder" "4.2.22" "ease_
 
 1. Open DB Reborn.
 
-2. Click the "..." button to select your input `.json` file.
+2. Click the "..." button to select your input `.json` file 3.3 generated from Dragonbones.
    
    ![DB Reborn Main Window](images/1_db_reborn_window.png)
    
-   *Note: After selecting the `.json` file, DB Reborn will perform a series of checks to ensure it meets the required standard for a successful conversion. Three pop-up windows will appear in sequence: one indicating that the `.json` file appears to be OK, another confirming that the `YOUR_FILE_TEXTURES` folder was found, and a final one verifying that this folder contains the project's images. Simply click the "OK" button on each pop-up to proceed.*
+   *Note: After selecting the `.json` file, DB Reborn will perform a series of checks to ensure it meets the required standard for a successful conversion. Three pop-up windows will appear in sequence: one indicating that the `.json` file appears to be OK, another confirming that the `YOUR_FILE_TEXTURES` folder was found and a final one verifying that this folder contains the project's images. Simply click the "OK" button on each pop-up to proceed.*
 
-3. Click the second "..." button to select the output folder for the `.spinejson` file.
+3. Click the second "..." button to select the output folder and the type of file (`.json or .spinejson`).
    
    ![DB Reborn Main Window](images/2_db_reborn_window_copy_texture_folder.png)
    
-   *Note: If you choose an output folder different from the one where the input `.json` is located, DB Reborn will offer an option to copy the `YOUR_FILE_TEXTURES` folder to the new location. Just check the corresponding checkbox. If you only wish to generate the `.spinejson` file without copying the textures, leave the checkbox unchecked.*
+   *Note: If you choose an output folder different from the one where the input `.json` is located, DB Reborn will turn the 'Copy Texture Folder' checkbox active, leaving you to copy the `YOUR_FILE_TEXTURES` folder to the new location. Just check the corresponding checkbox. If you only wish to generate the `.spinejson` file without copying the textures, leave the checkbox unchecked.*
 
 4. Click **Convert!**
    

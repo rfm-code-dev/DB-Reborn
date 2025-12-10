@@ -13,20 +13,22 @@
 
 ## Introdução
 
-O tipo de animação *cutout animation* é uma técnica poderosa no desenvolvimento de jogos, permitindo criar animações ricas e fluidas usando um número pequeno de *sprites*. Isso economiza espaço em disco e melhora a performance em comparação com a animação tradicional quadro a quadro.
+O DB Reborn é uma ferramenta gratuita e de código aberto que converte animações do clássico editor DragonBones para o formato moderno Spine JSON. Isso permite que você use suas animações do DragonBones em uma vasta gama de game engines e frameworks populares.
 
-Eu uso a [Game Engine Defold](https://defold.com/), que possui ótimos recursos, mas não tem um editor de animação de recorte integrado. O suporte principal é para arquivos JSON do Spine, através de uma extensão oficial. Como sou um desenvolvedor por hobby e não tenho orçamento para uma licença do Spine, procurei por alternativas gratuitas e encontrei o DragonBones.
-
-O DragonBones é uma ótima ferramenta de animação, embora antiga, que no passado permitia exportar diretamente para o formato do Spine. Contudo, devido à evolução do formato JSON do Spine, as animações criadas na última versão estável do DragonBones (v5.6) não são mais diretamente compatíveis com a extensão da Defold.
-
-Como JSON é um formato de dados aberto, eu desenvolvi o **DB Reborn**: uma ferramenta em Python que converte e atualiza os arquivos JSON do DragonBones para um formato compatível com a Defold.
+Embora tenha sido criado originalmente para a **Game Engine Defold**, o DB Reborn é uma ponte universal para qualquer desenvolvedor que busca um fluxo de trabalho gratuito para animação de recorte. Ao gerar um arquivo Spine JSON padrão, ele torna suas animações compatíveis com engines como **Godot, Unity, GameMaker** e muitas outras.
 
 **Para quem é esta ferramenta?**
+*   **DB Reborn é ideal para:** Hobbistas e desenvolvedores independentes que buscam uma forma gratuita de criar e usar animações de recorte na sua game engine de preferência.
+*   **Para trabalho profissional:** Se você precisa de recursos avançados e suporte dedicado, recomendamos fortemente a compra de uma [licença do Spine](http://esotericsoftware.com/ ).
 
-- **DB Reborn é ideal para:** Hobbistas e desenvolvedores que buscam uma forma gratuita de criar e testar animações de recorte simples na Defold.
-- **Para trabalho profissional:** Se você precisa de recursos avançados, suporte profissional e um fluxo de trabalho mais robusto, eu recomendo fortemente a compra de uma [licença do Spine](http://esotericsoftware.com/).
+## Compatibilidade com Engines
 
-Esta ferramenta ainda é experimental. Embora tenha funcionado bem nos meus testes, ela pode ter limitações. Por favor, experimente e compartilhe sua experiência!
+O DB Reborn gera um arquivo Spine JSON padrão, tornando-o compatível com praticamente qualquer game engine que possua um runtime para Spine. O novo seletor de saída permite que você escolha a extensão de arquivo correta para a sua engine.
+
+*   **`.json` (Padrão):** Para **Godot, Unity, GameMaker, Phaser, Cocos2d-x, LibGDX** e a maioria das outras engines.
+*   **`.spinejson` (Específico):** A extensão convencional para a **Game Engine Defold**.
+
+Se sua engine ou framework suporta Spine JSON, ele funcionará com o DB Reborn.
 
 ## **AVISO IMPORTANTE**
 

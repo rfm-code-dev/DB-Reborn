@@ -13,20 +13,22 @@
 
 ## Introduction
 
-Cutout animation is a powerful technique in game development, allowing for rich, fluid animations while using a small number of sprites. This saves disk space and improves performance compared to traditional frame-by-frame animation.
+DB Reborn is a free, open-source tool that converts animations from the classic DragonBones editor into the modern Spine JSON format. This allows you to use your DragonBones animations in a wide range of popular game engines and frameworks.
 
-I've been using the [Defold Game Engine](https://defold.com/), which has excellent features but lacks a built-in cutout animation editor. It primarily supports Spine JSON files via an official extension. As a hobbyist developer without the budget for a Spine license, I looked for free alternatives and found DragonBones.
-
-DragonBones is a great, albeit older, animation tool that once had a direct export-to-Spine feature. However, due to the evolution of the Spine JSON format, animations created in the last stable version of DragonBones (v5.6) are no longer directly compatible with Defold's Spine extension.
-
-Since JSON is an open data format, I developed **DB Reborn**: a Python tool that converts and updates DragonBones JSON files to a format compatible with Defold.
+While originally created for the **Defold Game Engine**, DB Reborn is a universal bridge for any developer looking for a free cutout animation pipeline. By generating a standard Spine JSON file, it makes your animations compatible with engines like **Godot, Unity, GameMaker** and many more.
 
 **Who is this for?**
+*   **DB Reborn is ideal for:** Hobbyists and indie developers looking for a free pipeline to bring DragonBones animations into their chosen game engine.
+*   **For professional work:** If you need advanced features and dedicated support, we highly recommend purchasing a [Spine license](http://esotericsoftware.com/ ).
 
-- **DB Reborn is ideal for:** Hobbyists and developers looking for a free way to create and test simple cutout animations in Defold.
-- **For professional work:** If you need advanced features, professional support, and a more powerful workflow, I highly recommend purchasing a [Spine license](http://esotericsoftware.com/).
+## Engine Compatibility
 
-This tool is still experimental. While it worked well in my tests, it may have limitations. Please give it a try and share your experience!
+DB Reborn generates a standard Spine JSON file, making it compatible with virtually any game engine that has a Spine runtime. The output dropdown allows you to select the correct file extension for your target engine.
+
+*   **`.json` (Default):** For **Godot, Unity, GameMaker, Phaser, Cocos2d-x, LibGDX,** and most other engines.
+*   **`.spinejson` (Specific):** The conventional extension for the **Defold Game Engine**.
+
+If your engine or framework supports Spine JSON, it will work with DB Reborn.
 
 ## **IMPORTANT NOTICE**
 
@@ -53,7 +55,7 @@ You have two options to run the application:
 **Option A: Download the App (Easy Way)**
 
 1. Go to the [Releases page](https://github.com/YOUR_USERNAME/YOUR_REPOSITORY/releases) on GitHub.
-2. Download the executable for Windows or Linux.
+2. Download the executable for Windows, Mac or Linux.
 3. Run the app.
 
 **Option B: Run from Source (for macOS or advanced users)**
@@ -89,17 +91,17 @@ python3 db_reborn.py "path/to/your.json" "path/to/output_folder" "4.2.22" "ease_
 
 1. Open DB Reborn.
 
-2. Click the "..." button to select your input `.json` file.
+2. Click the "..." button to select your input `.json` file 3.3 generated from Dragonbones.
    
    ![DB Reborn Main Window](images/1_db_reborn_window.png)
    
-   *Note: After selecting the `.json` file, DB Reborn will perform a series of checks to ensure it meets the required standard for a successful conversion. Three pop-up windows will appear in sequence: one indicating that the `.json` file appears to be OK, another confirming that the `YOUR_FILE_TEXTURES` folder was found, and a final one verifying that this folder contains the project's images. Simply click the "OK" button on each pop-up to proceed.*
+   *Note: After selecting the `.json` file, DB Reborn will perform a series of checks to ensure it meets the required standard for a successful conversion. Three pop-up windows will appear in sequence: one indicating that the `.json` file appears to be OK, another confirming that the `YOUR_FILE_TEXTURES` folder was found and a final one verifying that this folder contains the project's images. Simply click the "OK" button on each pop-up to proceed.*
 
-3. Click the second "..." button to select the output folder for the `.spinejson` file.
+3. Click the second "..." button to select the output folder and the type of file (`.json or .spinejson`).
    
    ![DB Reborn Main Window](images/2_db_reborn_window_copy_texture_folder.png)
    
-   *Note: If you choose an output folder different from the one where the input `.json` is located, DB Reborn will offer an option to copy the `YOUR_FILE_TEXTURES` folder to the new location. Just check the corresponding checkbox. If you only wish to generate the `.spinejson` file without copying the textures, leave the checkbox unchecked.*
+   *Note: If you choose an output folder different from the one where the input `.json` is located, DB Reborn will turn the 'Copy Texture Folder' checkbox active, leaving you to copy the `YOUR_FILE_TEXTURES` folder to the new location. Just check the corresponding checkbox. If you only wish to generate the `.spinejson` file without copying the textures, leave the checkbox unchecked.*
 
 4. Click **Convert!**
    

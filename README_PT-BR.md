@@ -90,7 +90,11 @@ python3 db_reborn.py "caminho/para/seu.json" "caminho/para/pasta_de_saida" "4.2.
 - `"caminho/para/pasta_de_saida"`: A pasta onde o arquivo `.spinejson` será salvo.
 - `"4.2.22"`: A versão alvo do Spine (atualmente fixa).
 - `"tipo_de_ease"`: Use `"curve"` para converter as curvas de suavização ou `"linear"` para forçar transições lineares.
-- `"copiar_pasta_de_texturas"`: Se o caminho para a pasta de saída for diferente do caminho original use `"True"` para copiar a pasta de texturas ou `"False"` para não copiar. Se o caminho da pasta de entrada e de saída for o mesmo, o padrão sempre será `"False"`. 
+- `"copiar_pasta_de_texturas"`: Se o caminho para a pasta de saída for diferente do caminho original use `"True"` para copiar a pasta de texturas ou `"False"` para não copiar. Se o caminho da pasta de entrada e de saída for o mesmo, o padrão sempre será `"False"`.
+
+Exemplo: python3 db_reborn.py "/home/user/Downloads/animation.json" "/home/user/Game/new_animation.json" "curve" "True"
+
+Ação: Db Reborn carregará "animation.json" na pasta "Downloads", converterá  um novo .json com suavização de curvas "ease", salvará o arquivo "new_animation.json" e copiará a pasta "animation_texture",  ambos na pasta "Game".
 
 **Usando a Interface Gráfica:**
 

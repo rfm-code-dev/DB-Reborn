@@ -74,7 +74,11 @@ Você tem duas opções para rodar a aplicação:
 
 4. Você pode então rodar a interface gráfica ou usar a linha de comando.
 
-**Usando a Interface de Linha de Comando (CLI):** Abra seu terminal dentro da pasta `Source` e execute o script com os seguintes argumentos:
+### 4. Converta o Arquivo
+
+**Usando a Interface de Linha de Comando (CLI):**
+
+Abra seu terminal dentro da pasta `Source` e execute o script com os seguintes argumentos:
 
 Bash
 
@@ -88,7 +92,7 @@ python3 db_reborn.py "caminho/para/seu.json" "caminho/para/pasta_de_saida" "4.2.
 - `"tipo_de_ease"`: Use `"curve"` para converter as curvas de suavização ou `"linear"` para forçar transições lineares.
 - `"copiar_pasta_de_texturas"`: Se o caminho para a pasta de saída for diferente do caminho original use `"True"` para copiar a pasta de texturas ou `"False"` para não copiar. Se o caminho da pasta de entrada e de saída for o mesmo, o padrão sempre será `"False"`. 
 
-### 4. Converta o Arquivo
+**Usando a Interface Gráfica:**
 
 1. Abra o DB Reborn.
    
@@ -118,9 +122,13 @@ python3 db_reborn.py "caminho/para/seu.json" "caminho/para/pasta_de_saida" "4.2.
 
 ## Problemas Conhecidos e Limitações
 
-- **Curvas de Suavização (Easing):** O script tenta converter as curvas de *easing*. Se sua animação causar um erro fatal (*crash*) na Defold, tente reconverter marcando a caixa **"Force Linear"**. Isso mudará todas as transições para lineares.
+- **Curvas de Suavização (Easing) #1:** O script tenta converter as curvas de *easing*. Se sua animação causar um erro fatal (*crash*) na Defold, tente reconverter marcando a caixa **"Force Linear"**. Isso mudará todas as transições para lineares.
   
   ![DB Reborn Success](images/4_force_linear.png)
+
+- **Curvas de Suavização (Easing) #2:** Como o DB Reborn converte automaticamente todos os quadros-chave com curvas de suavização, se você usar curvas de suavização em todos os quadros-chave, todos serão convertidos. Isso pode resultar em movimentos indesejados, especialmente se houver dois quadros-chave iguais e você não quiser que haja movimento entre eles. Portanto, recomendo que você defina o primeiro quadro-chave como linear para evitar esse problema.
+  
+  ![Dragonbones Linear](images/6_ease_curve_linear.png)
 
 - **Propriedades de Cisalhamento (Shear):** O DragonBones gera automaticamente *keyframes* de "shear" em seu JSON, mesmo sem uma interface para controlá-los. Para prevenir problemas no script, o DB Reborn remove todas as *curvas* de "shear", deixando apenas os *keyframes* de tempo, que não afetam a animação final.
   

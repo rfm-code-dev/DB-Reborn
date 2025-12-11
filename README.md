@@ -94,6 +94,7 @@ python3 db_reborn.py "path/to/your.json" "path/to/output_file" "4.2.22" "ease_ty
 - `"copy_textures_folder"`: If input and output folders are different, you can use `"True"` to copy Textures Folder or `"False"` to not copy. If the input and output are the same, the DB Reborn will force `"False"`.
 
 Example: `python3 db_reborn.py "/home/user/Downloads/animation.json" "/home/user/Game/new_animation.json" "curve" "True"`
+
 Action: Db Reborn will get "animation.json" in the "Downloads" folder, converts a new .json with "ease" curves, save "new_animation.json" and copy it with the "animation_texture" folder in the "Game" folder.
 
 

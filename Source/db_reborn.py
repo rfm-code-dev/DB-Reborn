@@ -124,15 +124,6 @@ class DbJsonCheck:
             # If the directory is empty
             else:
                 self.images_in_texture_folder = False
-            #
-            #
-            # for filename in os.listdir(self.images_folder):
-            #     if filename.lower().endswith(image_extensions):
-            #         #print(filename)
-            #         self.texture_folder_in_place = True
-            #
-            #     else:
-
         else:
             # print(f"The folder '{self.images_folder}' does not exist.")
             self.texture_folder_in_place = False
@@ -147,9 +138,9 @@ class DbJsonCheck:
 """
 class DbJsonConverter:
     global textures_folder_name
-    def __init__(self, old_json_file_name, new_spinejson, spine_version, easing_type, copy_textures_folder):
+    def __init__(self, old_json_file_name, new_json_file, spine_version, easing_type, copy_textures_folder):
         self.old_json_file_name = old_json_file_name
-        self.new_spinejson = new_spinejson
+        self.new_json_file = new_json_file
         self.spine_version = spine_version
         self.easing_type = easing_type
         self.copy_textures_folder = copy_textures_folder
@@ -1393,47 +1384,54 @@ class DbJsonConverter:
         # Copy the Temp Json back to the Json Data
         json_data = temp_json_data
 
-        # Convert final Json file to Pretty JSON and save it with new extension (.spinejson) for use in Defold
+        # Convert final Json file to Pretty JSON and save it with new extension (.json or .spinejson).
         converted = json.dumps(json_data, indent=4)
 
-        # Creating new filename with .spinejson extension from old json file
-        # new_spinejson_file_name = self.old_json_file_name[:-5] + ".spinejson"
-        new_spinejson_file_name = self.new_spinejson
+        # Creating new filename with new extension from old json file
+        new_json_file_name = self.new_json_file
 
-        #print(converted)
+        print(new_json_file_name)
 
-        # If there's a diferent folder to save .spinejson and "Copy Textures Folder" is marked then make a copy
+        # If there's a diferent folder to save new .json and "Copy Textures Folder" is marked then make a copy
         #print("Texture folder Copy Status:", self.copy_textures_folder)
         if self.copy_textures_folder:
             source_folder = Path(self.old_json_file_name)
+            source_directory = os.path.dirname(source_folder)
             textures_folder_path = os.path.dirname(source_folder) + "/" + source_folder.stem + "_texture"
             textures_folder_name = source_folder.stem + "_texture"
 
-            destination_file = Path(self.new_spinejson)
+            destination_file = Path(self.new_json_file)
             destination_folder = os.path.dirname(destination_file)
 
             folder_name = destination_folder + "/" + textures_folder_name
-            #print(folder_name)
-            # Create a new Texture folder in the .spinejson directory
-            try:
-                os.mkdir(folder_name)
-                # print(f"Folder '{folder_name}' created successfully.")
-            except FileExistsError:
+            print(destination_folder)
+            print(source_directory)
+            # Copy Textures folder IF the Input and Output directories are different
+            # This is only for Command Line because this test is done by the GUI.
+            if source_folder == source_directory:
                 pass
-                # print(f"Folder '{folder_name}' already exists.")
-            except Exception as e:
-                pass
-                #print(f"An error occurred: {e}")
+                print("Same Textures Folder Directory - Skipping copy")
+            else:
+                #print("different directory")
+                # Create a new Texture folder in the output directory
+                try:
+                    os.mkdir(folder_name)
+                    # print(f"Folder '{folder_name}' created successfully.")
+                except FileExistsError:
+                    pass
+                    # print(f"Folder '{folder_name}' already exists.")
+                except Exception as e:
+                    pass
+                    #print(f"An error occurred: {e}")
 
-            # Copy the content of original Texture folder inside the new folder, in the same directory of the .spinejson
+            # Copy the content of original Texture folder inside the new folder, in the same output directory
             shutil.copytree(textures_folder_path, folder_name, dirs_exist_ok=True)
             #print(f"Copied contents of '{textures_folder_path}' to '{folder_name}'.")
 
-        # Generate a new .spinejson file in the same folder of db_reborn
-        with open(new_spinejson_file_name, 'w') as file:
+        # Generate a new .json or .spinejson file in the same folder of db_reborn
+        with open(new_json_file_name, 'w') as file:
             file.write(converted)
 
-        #print("Success generate file " + new_spinejson_file_name, "from " + self.old_json_file_name)
         self.file_converted = True
 
         # If using command line, the app print this output message
@@ -1463,12 +1461,12 @@ if __name__ == "__main__":
 
     # Using arguments in command line
     old_json_path = sys.argv[1] # Using the command line argument
-    spinejson_path = sys.argv[2] # Using the command line argument
+    new_file_path = sys.argv[2] # Using the command line argument
     sp_version = sys.argv[3] # Using the command line argument: "4.2.22"
     easing = sys.argv[4] # Argument "linear" or "curve"
     copy_textures_folder = sys.argv[5] # Argument to copy Textures folder to a new folder
     # app_dir = os.path.dirname(__file__)
-    DbJsonConverter(old_json_path, spinejson_path, sp_version, easing, copy_textures_folder)
+    DbJsonConverter(old_json_path, new_file_path, sp_version, easing, copy_textures_folder)
 
 """
 ################################# END OF ENTER THE SCRIPT ######################################################

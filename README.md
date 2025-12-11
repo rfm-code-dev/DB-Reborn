@@ -59,7 +59,7 @@ You have two options to run the application:
 2. Download the executable for Windows, Mac or Linux.
 3. Run the app.
 
-**Option B: Run from Source (for macOS or advanced users)**
+**Option B: Run from Source (for advanced users)**
 
 1. Download the `Source` folder.
 
@@ -80,13 +80,14 @@ You have two options to run the application:
 Bash
 
 ```
-python3 db_reborn.py "path/to/your.json" "path/to/output_folder" "4.2.22" "ease_type"
+python3 db_reborn.py "path/to/your.json" "path/to/output_folder" "4.2.22" "ease_type" "copy_textures_folder"
 ```
 
 - `"path/to/your.json"`: The full path to the input DragonBones JSON file.
 - `"path/to/output_folder"`: The folder where the `.spinejson` file will be saved.
 - `"4.2.22"`: The target Spine version (currently fixed).
 - `"ease_type"`: Use `"curve"` to convert easing or `"linear"` to force linear transitions.
+- `"copy_textures_folder"`: If input and output folders are different, you can use `"True"` to copy Textures Folder or `"False"` to not copy. If the input and output are the same, the default is `"False"`.
 
 ### 4. Convert the File
 

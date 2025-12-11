@@ -59,7 +59,7 @@ You have two options to run the application:
 2. Download the executable for Windows, Mac or Linux.
 3. Run the app.
 
-**Option B: Run from Source (for macOS or advanced users)**
+**Option B: Run from Source (for advanced users)**
 
 1. Download the `Source` folder.
 
@@ -75,30 +75,39 @@ You have two options to run the application:
 
 4. You can then run the GUI or use the command line.
 
-**Using the Command Line Interface (CLI):** Open your terminal inside the `Source` folder and run the script with the following arguments:
+### 4. Convert the File
+
+***Using the Command Line Interface (CLI):***
+
+Open your terminal inside the `Source` folder and run the script with the following arguments:
 
 Bash
 
 ```
-python3 db_reborn.py "path/to/your.json" "path/to/output_folder" "4.2.22" "ease_type"
+python3 db_reborn.py "path/to/your.json" "path/to/output_file" "4.2.22" "ease_type" "copy_textures_folder"
 ```
 
 - `"path/to/your.json"`: The full path to the input DragonBones JSON file.
-- `"path/to/output_folder"`: The folder where the `.spinejson` file will be saved.
+- `"path/to/output_file"`: The complete path with filename (`.json` or `.spinejson`) where file will be saved.
 - `"4.2.22"`: The target Spine version (currently fixed).
 - `"ease_type"`: Use `"curve"` to convert easing or `"linear"` to force linear transitions.
+- `"copy_textures_folder"`: If input and output folders are different, you can use `"True"` to copy Textures Folder or `"False"` to not copy. If the input and output are the same, the DB Reborn will force `"False"`.
 
-### 4. Convert the File
+Example: `python3 db_reborn.py "/home/user/Downloads/animation.json" "/home/user/Game/new_animation.json" "curve" "True"`
+Action: Db Reborn will get "animation.json" in the "Downloads" folder, converts a new .json with "ease" curves, save "new_animation.json" and copy it with the "animation_texture" folder in the "Game" folder.
+
+
+***Using the GUI:***
 
 1. Open DB Reborn.
 
-2. Click the "..." button to select your input `.json` file 3.3 generated from Dragonbones.
+2. Click the first "..." button to select your input `.json` file 3.3 generated from Dragonbones.
    
    ![DB Reborn Main Window](images/1_db_reborn_window.png)
    
    *Note: After selecting the `.json` file, DB Reborn will perform a series of checks to ensure it meets the required standard for a successful conversion. Three pop-up windows will appear in sequence: one indicating that the `.json` file appears to be OK, another confirming that the `YOUR_FILE_TEXTURES` folder was found and a final one verifying that this folder contains the project's images. Simply click the "OK" button on each pop-up to proceed.*
 
-3. Click the second "..." button to select the output folder and the output file. Choose the file extension (`.json` or `.spinejson`).
+3. Click the second "..." button to select the output folder and the file. Choose the file extension (`.json` or `.spinejson`).
    
    ![DB Reborn Main Window](images/2_db_reborn_window_copy_texture_folder.png)
    
@@ -119,13 +128,17 @@ python3 db_reborn.py "path/to/your.json" "path/to/output_folder" "4.2.22" "ease_
 
 ## Known Issues & Limitations
 
-- **Easing Curves:** The script attempts to convert easing curves. If your animation causes Defold to crash, try re-converting with the **"Force Linear"** checkbox enabled. This will change all transitions to be linear.
+- **Easing Curves #1:** The script attempts to convert easing curves. If your animation causes Defold to crash, try re-converting with the **"Force Linear"** checkbox enabled. This will change all transitions to be linear.
   
   ![DB Reborn Main Window](images/4_force_linear.png)
 
+  - **Easing Curves #2:** As DB Reborn converts automatically all the keyframes with ease curves, if you use ease in all keyframes, it will be all converted. It may results in some undesired motions if in some keyframes you wish you character not move. So I recommend you to put some linear keyframes at the end of the ease motion to prevent this.
+  
+  ![Dragonbones_set linear](images/6_ease_curve_linear.png)
+
 - **Shear Properties:** DragonBones automatically generates "shear" keyframes in its JSON output, even though there is no interface to control them. To prevent potential issues in Defold, DB Reborn removes all shear *curves*, leaving only the base time keys, which do not affect the final animation.
   
-  ![DB Reborn Main Window](images/5_dragonbones_properties.png)
+  ![Dragonbones Properties](images/5_dragonbones_properties.png)
 
 ## Support & Contribution
 

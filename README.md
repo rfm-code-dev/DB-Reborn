@@ -132,7 +132,7 @@ Action: Db Reborn will get "animation.json" in the "Downloads" folder, converts 
   
   ![DB Reborn Main Window](images/4_force_linear.png)
 
-  - **Easing Curves #2:** As DB Reborn converts automatically all the keyframes with ease curves, if you use ease in all keyframes, it will be all converted. It may results in some undesired motions if in some keyframes you wish you character not move. So I recommend you to put some linear keyframes at the end of the ease motion to prevent this.
+  - **Easing Curves #2:** As DB Reborn converts automatically all the keyframes with ease curves, if you use ease curves in all keyframes, all will be converted. It may results in some undesired motions if in some cases there are two equal keyframes and you wish not move between this gap. So I recommend you to set this first keyframe to linear to prevent this.
   
   ![Dragonbones_set linear](images/6_ease_curve_linear.png)
 

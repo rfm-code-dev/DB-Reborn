@@ -9,7 +9,7 @@
 
 # DB Reborn
 
-### Uma ferramenta para converter JSON do DragonBones (v3.3) para JSON do Spine, para uso na Game Engine Defold.
+### Uma ferramenta para converter JSON do DragonBones (v3.3) para JSON do Spine, para uso em Game Engines.
 
 ## Introdução
 

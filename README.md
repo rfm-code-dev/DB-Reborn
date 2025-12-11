@@ -118,7 +118,7 @@ Action: Db Reborn will get "animation.json" in the "Downloads" folder, converts 
    
    ![DB Reborn Main Window](images/3_db_reborn_window_success.png)
 
-### 5. Import into Defold
+### 5. Import into Defold Game Engine
 
 1. Copy the generated `YOUR_FILE.spinejson` and the `YOUR_FILE_TEXTURES` folder into your Defold project.
 2. In your `game.project` file, add the [Spine extension dependency](https://defold.com/manuals/spine/).

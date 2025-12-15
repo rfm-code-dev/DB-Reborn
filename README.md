@@ -101,6 +101,11 @@ Action: Db Reborn will get "animation.json" in the "Downloads" folder, converts 
 ***Using the GUI:***
 
 1. Open DB Reborn.
+You can run it by clicking the executable file or via the command line, if all the necessary Python packages are installed:
+    
+   ```
+   python3 main.py
+   ``` 
 
 2. Click the first "..." button to select your input `.json` file 3.3 generated from Dragonbones.
    

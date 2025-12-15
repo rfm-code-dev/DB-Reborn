@@ -69,7 +69,7 @@ Você tem duas opções para rodar a aplicação:
    Bash
    
    ```
-   pip install PySide6 Pillow
+   pip install PySide6 Pillow wxPython
    ```
 
 4. Você pode então rodar a interface gráfica ou usar a linha de comando.

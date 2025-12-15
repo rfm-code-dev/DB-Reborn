@@ -70,7 +70,7 @@ You have two options to run the application:
    Bash
    
    ```
-   pip install PySide6 Pillow
+   pip install PySide6 Pillow wxPython
    ```
 
 4. You can then run the GUI or use the command line.

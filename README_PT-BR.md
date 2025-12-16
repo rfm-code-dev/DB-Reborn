@@ -9,7 +9,7 @@
 
 # DB Reborn
 
-### Uma ferramenta para converter JSON do DragonBones (v3.3) para JSON do Spine, para uso na Game Engine Defold.
+### Uma ferramenta para converter JSON do DragonBones (v3.3) para JSON do Spine para uso em animações em jogos.
 
 ## Introdução
 
@@ -69,12 +69,16 @@ Você tem duas opções para rodar a aplicação:
    Bash
    
    ```
-   pip install PySide6 Pillow
+   pip install PySide6 Pillow wxPython
    ```
 
 4. Você pode então rodar a interface gráfica ou usar a linha de comando.
 
-**Usando a Interface de Linha de Comando (CLI):** Abra seu terminal dentro da pasta `Source` e execute o script com os seguintes argumentos:
+### 4. Converta o Arquivo
+
+**Usando a Interface de Linha de Comando (CLI):**
+
+Abra seu terminal dentro da pasta `Source` e execute o script com os seguintes argumentos:
 
 Bash
 
@@ -86,28 +90,37 @@ python3 db_reborn.py "caminho/para/seu.json" "caminho/para/pasta_de_saida" "4.2.
 - `"caminho/para/pasta_de_saida"`: A pasta onde o arquivo `.spinejson` será salvo.
 - `"4.2.22"`: A versão alvo do Spine (atualmente fixa).
 - `"tipo_de_ease"`: Use `"curve"` para converter as curvas de suavização ou `"linear"` para forçar transições lineares.
-- `"copiar_pasta_de_texturas"`: Se o caminho para a pasta de saída for diferente do caminho original use `"True"` para copiar a pasta de texturas ou `"False"` para não copiar. Se o caminho da pasta de entrada e de saída for o mesmo, o padrão sempre será `"False"`. 
+- `"copiar_pasta_de_texturas"`: Se o caminho para a pasta de saída for diferente do caminho original use `"True"` para copiar a pasta de texturas ou `"False"` para não copiar. Se o caminho da pasta de entrada e de saída for o mesmo, o padrão sempre será `"False"`.
 
-### 4. Converta o Arquivo
+Exemplo: python3 db_reborn.py "/home/user/Downloads/animation.json" "/home/user/Game/new_animation.json" "curve" "True"
+
+Ação: Db Reborn carregará "animation.json" na pasta "Downloads", converterá  um novo .json com suavização de curvas "ease", salvará o arquivo "new_animation.json" e copiará a pasta "animation_texture",  ambos na pasta "Game".
+
+**Usando a Interface Gráfica:**
 
 1. Abra o DB Reborn.
+   Você pode executá-lo clicando no arquivo executável ou através da linha de comando, se todos os pacotes Python necessários estiverem instalados:
+    
+   ```
+   python3 main.py
+   ``` 
    
    ![DB Reborn Main Window](images/1_db_reborn_window.png)
 
-2. Clique no botão "..." para selecionar seu arquivo de entrada `.json` 3.3 gerado do Dragonbones.
+3. Clique no botão "..." para selecionar seu arquivo de entrada `.json` 3.3 gerado do Dragonbones.
    
    *Observação: Após selecionar o  `.json`, o DB Reborn fará verificações no arquivo para ver se ele está de acordo com o padrão para ser convertido corretamente. Três janelas popup irão aparecer em sequência: Uma indicando que o  `.json` está aparentemente OK, outra que foi localizada a pasta  `SEU_ARQUIVO_TEXTURES` e a última, que a pasta contém as imagens do projeto. É só clicar no botão de OK em cada "popup" para prosseguir.*
 
-3. O próximo passo é clicar no segundo botão "..." para selecionar a pasta de saída e o arquivo de saída. Escolha a extensão para o arquivo (`.json` ou `.spinejson`).
+4. O próximo passo é clicar no segundo botão "..." para selecionar a pasta de saída e o arquivo de saída. Escolha a extensão para o arquivo (`.json` ou `.spinejson`).
     ![DB Reborn Texture Folder](images/2_db_reborn_window_copy_texture_folder.png)
    
    *Observação: Caso você selecione uma pasta de saída diferente da pasta onde está localizado o `.json`, o DB Reborn irá tornar a checkbox 'Copy Texture Folder' ativa, fornecendo a opção de copiar a pasta `SEU_ARQUIVO_TEXTURES` para o novo local. É só marcar o "checkbox". Caso deseje apenas gerar o `.json` ou `.spinejson`, deixe o "checkbox" desmarcado.*
 
-4. Clique em **Converter!**
+5. Clique em **Converter!**
 
 ![DB Reborn Success](images/3_db_reborn_window_success.png)
 
-### 5. Importe na Defold
+### 5. Importe na Defold Game Engine
 
 1. Copie o arquivo `SEU_ARQUIVO.spinejson` gerado e a pasta `SEU_ARQUIVO_TEXTURES` para o seu projeto Defold.
 2. No seu arquivo `game.project`, adicione a [dependência da extensão do Spine](https://defold.com/manuals/spine/).
@@ -118,9 +131,13 @@ python3 db_reborn.py "caminho/para/seu.json" "caminho/para/pasta_de_saida" "4.2.
 
 ## Problemas Conhecidos e Limitações
 
-- **Curvas de Suavização (Easing):** O script tenta converter as curvas de *easing*. Se sua animação causar um erro fatal (*crash*) na Defold, tente reconverter marcando a caixa **"Force Linear"**. Isso mudará todas as transições para lineares.
+- **Curvas de Suavização (Easing) #1:** O script tenta converter as curvas de *easing*. Se sua animação causar um erro fatal (*crash*) na Defold, tente reconverter marcando a caixa **"Force Linear"**. Isso mudará todas as transições para lineares.
   
   ![DB Reborn Success](images/4_force_linear.png)
+
+- **Curvas de Suavização (Easing) #2:** Como o DB Reborn converte automaticamente todos os quadros-chave com curvas de suavização, se você usar curvas de suavização em todos os quadros-chave, todos serão convertidos. Isso pode resultar em movimentos indesejados, especialmente se houver dois quadros-chave iguais e você não quiser que haja movimento entre eles. Portanto, recomendo que você defina o primeiro quadro-chave como linear para evitar esse problema.
+  
+  ![Dragonbones Linear](images/6_ease_curve_linear.png)
 
 - **Propriedades de Cisalhamento (Shear):** O DragonBones gera automaticamente *keyframes* de "shear" em seu JSON, mesmo sem uma interface para controlá-los. Para prevenir problemas no script, o DB Reborn remove todas as *curvas* de "shear", deixando apenas os *keyframes* de tempo, que não afetam a animação final.
   

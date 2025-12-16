@@ -74,21 +74,20 @@ How to Export Animations
   - At least 1 slot with 1 skin.
   - At least 1 animation.
 
-3-Download a copy of DB Reborn on your PC from the Github
-  Project page.
-
-4-Open DB Reborn. Select the '.json' file (must be in the same folder
+3-With DB Reborn open, select the '.json' file (must be in the same folder
   of YOUR_FILE_TEXTURES).
 
-5-Select the output folder for the 'YOUR_FILE.json'
-  or 'YOUR_FILE.spinejson'.
+4-Select the output folder for the 'YOUR_FILE.json'
+  or 'YOUR_FILE.spinejson'. If you want to copy the
+  Textures Folder to the output folder, check
+  'Copy Texture Folder'.
 
-6-Click 'Convert!' and let the app process the file.
+5-Click 'Convert!' and let the app process the file.
 
 7-Copy 'YOUR_FILE.json' or 'YOUR_FILE.spinejson' and the
   'YOUR_FILE_TEXTURES' folder to your game project folder.
 
-8-Import the files to your project, create a script to play
+7-Import the files to your project, create a script to play
   the animation and see the result.
 
 <u>Note 1</u>: If your animation has easy in/out curves, the script will try
@@ -105,7 +104,7 @@ How to Export Animations
   in the final animations.
 
 <u>Note 3</u>: DB Reborn was tested in Defold Game Engine. So if you
-  use another game engine, please test simple animations first.
+  use another Game Engine, please test basic animations first.
 
 For more info and tutorials, visit the <a href='https://www.youtube.com/@rfmcodedev' alt='Buy Me a Coffee at ko-fi.com'>YouTube channel</a>
 or the <a href='https://github.com/rfm-code-dev/DB-Reborn'>GitHub project</a> page.
@@ -123,7 +122,7 @@ about_text = about_text = """<html>
 <body>
 <pre style="font-family: Helvetica-Regular; font-size: 13px; font-weight: 400;">
 DB Reborn 1.0.0
-Dragonbones .json file updater
+DragonBones to Spine JSON Converter
 </pre>
 
 <pre style="font-family: Helvetica-Regular; font-size: 11px; font-weight: 100; ">
@@ -291,7 +290,7 @@ class MainWindow(QtWidgets.QMainWindow):
         font_families = QFontDatabase.applicationFontFamilies(font_id)
         #print(font_families[0])
 
-        self.font_header = QFont(font_families, 12 + font_offset)
+        self.font_header = QFont(font_families, 13 + font_offset)
         self.font_header.setHintingPreference(QFont.PreferNoHinting)
 
         self.font_regular = QFont(font_families, 9 + font_offset)
@@ -446,8 +445,10 @@ if you do not want to overwrite its contents.
                             self.copy_texture_folder_box.setText(overwrite_texture_folder)
                             self.copy_texture_folder_box.setIconPixmap(self.icon_question_pixmap)
                             self.copy_texture_folder_box.setFont(self.font_regular_info)
-                            self.copy_texture_folder_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
-                            self.copy_texture_folder_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+                            self.copy_texture_folder_box.setStyleSheet("background-color: rgb(42, 42, 42);"
+                                                                       " color: rgb(255, 255, 255)")
+                            self.copy_texture_folder_box.setStandardButtons(QMessageBox.StandardButton.Yes
+                                                                            | QMessageBox.StandardButton.No)
                             clicked_button = self.copy_texture_folder_box.exec()
 
                             # If the user decides to overwrite spinejson file
@@ -600,6 +601,7 @@ Attention: Detected a .json file
                 msg_box = QMessageBox()
                 msg_box.setWindowTitle("Json Check Passed")
                 msg_box.setText(check_passed_text_json)
+                msg_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
                 # Set the custom icon pixmap
                 msg_box.setIconPixmap(self.icon_ok_pixmap)
                 msg_box.StandardButton.Ok
@@ -629,6 +631,7 @@ Attention: Check if the Texture Folder:
                     msg_box = QMessageBox()
                     msg_box.setWindowTitle("No Texture Folder in Place")
                     msg_box.setText(no_texture_folder_in_place)
+                    msg_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
                     # Set the custom icon pixmap
                     msg_box.setIconPixmap(self.icon_no_pixmap)
                     msg_box.StandardButton.Ok
@@ -639,6 +642,7 @@ Attention: Check if the Texture Folder:
                     msg_box = QMessageBox()
                     msg_box.setWindowTitle("Texture Folder in Place")
                     msg_box.setText(check_passed_text_texture_folder)
+                    msg_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
                     # Set the custom icon pixmap
                     msg_box.setIconPixmap(self.icon_ok_pixmap)
                     msg_box.StandardButton.Ok
@@ -663,6 +667,7 @@ Attention: Check if the Texture Folder:
                     msg_box = QMessageBox()
                     msg_box.setWindowTitle("No Images in Texture Folder")
                     msg_box.setText(no_images_in_textures_folder)
+                    msg_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
                     # Set the custom icon pixmap
                     msg_box.setIconPixmap(self.icon_no_pixmap)
                     msg_box.StandardButton.Ok
@@ -682,6 +687,7 @@ Now select the Output Folder\nto generate your file.
 </body>
 </html>""")
                     msg_box.setText(images_in_textures_folder)
+                    msg_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
                     # Set the custom icon pixmap
                     msg_box.setIconPixmap(self.icon_ok_pixmap)
                     msg_box.StandardButton.Ok
@@ -693,6 +699,7 @@ Now select the Output Folder\nto generate your file.
                 msg_box = QMessageBox()
                 msg_box.setWindowTitle("Json Check Failed")
                 msg_box.setText(check_not_passed_text)
+                msg_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
                 # Set the custom icon pixmap
                 msg_box.setIconPixmap(self.icon_no_pixmap)
                 msg_box.StandardButton.Ok
@@ -763,6 +770,7 @@ Now select the Output Folder\nto generate your file.
             msg_box = QMessageBox()
             msg_box.setWindowTitle("Please Select Json File")
             msg_box.setText(select_json_file_first)
+            msg_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
             # Set the custom icon pixmap
             msg_box.setIconPixmap(self.icon_no_pixmap)
             msg_box.StandardButton.Ok
@@ -784,6 +792,7 @@ Now select the Output Folder\nto generate your file.
             msg_box = QMessageBox()
             msg_box.setWindowTitle("Input Json File Required")
             msg_box.setText(empty_input_field)
+            msg_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
             # Set the custom icon pixmap
             msg_box.setIconPixmap(self.icon_no_pixmap)
             msg_box.StandardButton.Ok
@@ -794,6 +803,7 @@ Now select the Output Folder\nto generate your file.
             msg_box = QMessageBox()
             msg_box.setWindowTitle("Output Folder Required")
             msg_box.setText(empty_output_field)
+            msg_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
             # Set the custom icon pixmap
             msg_box.setIconPixmap(self.icon_no_pixmap)
             msg_box.StandardButton.Ok
@@ -804,6 +814,7 @@ Now select the Output Folder\nto generate your file.
             msg_box = QMessageBox()
             msg_box.setWindowTitle("Input and Output Folder Required")
             msg_box.setText(empty_all_fields)
+            msg_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
             # Set the custom icon pixmap
             msg_box.setIconPixmap(self.icon_no_pixmap)
             msg_box.StandardButton.Ok
@@ -829,6 +840,7 @@ Now select the Output Folder\nto generate your file.
                     msg_box = QMessageBox()
                     msg_box.setWindowTitle("Conversion Completed")
                     msg_box.setText(congratulation_text)
+                    msg_box.setStyleSheet("background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
                     # Set the custom icon pixmap
                     msg_box.setIconPixmap(self.icon_ok_pixmap)
                     msg_box.StandardButton.Ok

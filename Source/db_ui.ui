@@ -1234,7 +1234,7 @@
       <property name="font">
        <font>
         <family>Helvetica</family>
-        <pointsize>11</pointsize>
+        <pointsize>14</pointsize>
         <bold>false</bold>
         <kerning>true</kerning>
        </font>
@@ -1243,7 +1243,7 @@
        <bool>true</bool>
       </property>
       <property name="text">
-       <string>Dragonbones 3.3 .json file updater.</string>
+       <string>DragonBones to Spine JSON Converter</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

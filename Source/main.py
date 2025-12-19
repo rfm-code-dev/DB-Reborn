@@ -156,7 +156,8 @@ with Dragonbones Json 3.3 file.
 check_passed_text_texture_folder = """<html>
 <body>
 <pre style="font-family: Helvetica-Regular; font-size: 11px; font-weight: 400; color: #FFFFFF; ">
-Detected Texture Folder in Place!
+Detected Texture Folder
+in Place!
 </pre>
 </body>
 </html>"""
@@ -197,7 +198,8 @@ select_json_file_first = """<html>
 <body>
 <pre style="font-family: Helvetica-Regular; font-size: 11px; font-weight: 400; color: #FFFFFF; ">
 Attention:
-Please select a valid Json file first.
+Please select a valid
+Json file first.
 </pre>
 </body>
 </html>"""
@@ -357,9 +359,6 @@ class MainWindow(QtWidgets.QMainWindow):
         # Setting up all Message Boxes to the same color layout
         QMessageBox.setStyleSheet(self, "background-color: rgb(42, 42, 42); color: rgb(255, 255, 255)")
 
-        # Create an Instance to store the images in the Texture folder
-        self.texture_list_folder = []
-
         if not self:
             #print(self.loader.errorString())
             sys.exit(-1)
@@ -429,6 +428,7 @@ class MainWindow(QtWidgets.QMainWindow):
                     if os.path.isdir(full_path):
                         #print("Folders in place", full_path, full_path_textures_folder)
                         # If there's the same folder in place, show alert
+                        self.play_sound_alert()
                         if full_path == full_path_textures_folder:
                             overwrite_texture_folder = (
 """<html>
@@ -475,7 +475,7 @@ if you do not want to overwrite its contents.
         global conflict_overwrite
 
         output_path_archive = Path(output_path)
-        # If there's conflict with same file name or testure folder name
+        # If there's conflict with same file name or texture folder name
         if output_path_archive.is_file():
             # print(os.path.basename(output_path))
             # print(os.path.basename(old_json_path))
@@ -548,7 +548,7 @@ Attention: Detected a .json file
                 self.overwrite_box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
                 clicked_button = self.overwrite_box.exec()
 
-                # If the user decides to overwrite spinejson file
+                # If the user decides to overwrite the file
                 if clicked_button == QMessageBox.StandardButton.Yes:
                     self.output_field = True
                     output_ok_write = True
@@ -607,10 +607,6 @@ Attention: Detected a .json file
                 msg_box.StandardButton.Ok
                 msg_box.exec()
 
-                # Store in this var the path of all images found
-                self.texture_list_folder = instance_check.texture_list
-                #print(self.texture_list_folder)
-
                 self.input_field = True
 
                 # Check if there's a Texture Folder
@@ -623,7 +619,7 @@ Attention: Detected a .json file
 <pre style="font-family: Helvetica-Regular; font-size: 11px; font-weight: 400; color: #FFFFFF; ">
 Attention: Check if the Texture Folder:
 """ + "'" + instance_check.texture_folder_name + "'\n"
-+ " " + """is in the same place of the JSON file.
+"""is in the same place of the JSON file.
 </pre>
 </body>
 </html>""")
@@ -659,7 +655,7 @@ Attention: Check if the Texture Folder:
 <pre style="font-family: Helvetica-Regular; font-size: 11px; font-weight: 400; color: #FFFFFF;">
 Attention: Check if the Texture Folder:
 """ + "'" + instance_check.texture_folder_name + "'\n"
-+ " " + """has the project images inside.
+"""has all the project images inside.
 </pre>
 </body>
 </html>""")
@@ -681,7 +677,8 @@ Attention: Check if the Texture Folder:
 """<html>
 <body>
 <pre style="font-family: Helvetica-Regular; font-size: 11px; font-weight: 400; color: #FFFFFF; ">
-Images located in """ + "'" + instance_check.texture_folder_name + "'" """.
+All the project images located
+in """ "'" + instance_check.texture_folder_name + "'" """.
 Now select the Output Folder\nto generate your file.
 </pre>
 </body>
@@ -751,15 +748,18 @@ Now select the Output Folder\nto generate your file.
                 # Call function to check overwrite conflicts
                 self.check_overwrite()
 
+                if os.path.dirname(old_json_path) == os.path.dirname(output_path):
+                    # Deactivate Texture Folder Overwrite Checkbox if the in and out paths are equal
+                    self.window.copy_textures_folder.setEnabled(False)
+                else:
+                    # Activate Texture Folder Overwrite Checkbox if the in and out paths are different
+                    self.window.copy_textures_folder.setEnabled(True)
+                    
                 # If the output folder is OK, add the .spinejson filename to path
                 if output_ok_write:
                     self.play_sound_ok()
                     self.window.output_path.setText(output_path)
                     self.output_field = True
-
-                    # Activate Texture Folder Checkbox
-                    self.window.copy_textures_folder.setEnabled(True)
-
                     # print(os.path.dirname(old_json_path))
                     # print(os.path.dirname(output_path))
                 else:

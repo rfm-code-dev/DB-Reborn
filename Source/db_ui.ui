@@ -136,7 +136,7 @@
          </font>
         </property>
         <property name="toolTip">
-         <string>Path to .json generated from Dragonbones.</string>
+         <string>Path to the old .json generated from Dragonbones.</string>
         </property>
         <property name="layoutDirection">
          <enum>Qt::LeftToRight</enum>
@@ -411,7 +411,7 @@
          </font>
         </property>
         <property name="toolTip">
-         <string>Path where to save the .spinejson file.</string>
+         <string>Path where to save the .json or .spinejson file.</string>
         </property>
         <property name="layoutDirection">
          <enum>Qt::LeftToRight</enum>
@@ -944,6 +944,9 @@
           <bold>false</bold>
          </font>
         </property>
+        <property name="toolTip">
+         <string>Copy Texture folder</string>
+        </property>
         <property name="text">
          <string>Copy Texture Folder</string>
         </property>
@@ -998,7 +1001,7 @@
            </font>
           </property>
           <property name="toolTip">
-           <string>Go to Help</string>
+           <string>DB Reborn Help</string>
           </property>
           <property name="text">
            <string>Help</string>
@@ -1046,7 +1049,7 @@
            </font>
           </property>
           <property name="toolTip">
-           <string>About</string>
+           <string>About DB Reborn</string>
           </property>
           <property name="text">
            <string>About</string>
@@ -1117,7 +1120,7 @@
            </font>
           </property>
           <property name="toolTip">
-           <string>Convert the .json into a .spinejson to use in Defold</string>
+           <string>Convert the old Dragonbones .json into a new .json or .spinejson</string>
           </property>
           <property name="text">
            <string>Convert!</string>

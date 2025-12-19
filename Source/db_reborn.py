@@ -51,7 +51,6 @@ class DbJsonCheck:
         self.json_state = False
         self.texture_folder_in_place = False
         self.images_in_texture_folder = False
-        self.texture_list = []
 
         #print(self.json_file)
         self.basic_key_pattern_list_json = ['skeleton', 'bones', 'slots', 'skins', 'animations']
@@ -82,7 +81,7 @@ class DbJsonCheck:
                 self.json_data_check = json.load(file_check)  # The json we will check if it has the minimum arguments
             # Create a list of Json keys
             for key_to_check in self.json_data_check:
-                # print(key_to_check)
+                #print(key_to_check)
                 self.json_keys.append(key_to_check)
             #print(self.basic_key_pattern_list_json, self.json_keys)
             #print(set(self.basic_key_pattern_list_json).intersection(self.json_keys))
@@ -95,7 +94,6 @@ class DbJsonCheck:
             #print(self.json_state)
         except:
             self.json_state = False
-
 
     def check_images_folder(self):
         # Check if there's an image folder with the same name of Json file
@@ -110,17 +108,55 @@ class DbJsonCheck:
 
             root_path = Path(self.images_folder)
             # print(root_path)
+
+            #Create a list of all images in the json slots
+            seen = set() # Avoid duplicate images
+            image_files_in_json = []
+            for skin_name in self.json_data_check['skins']:
+                #print(skin_name)
+                #print(self.json_data_check['skins'][skin_name])
+                for element in self.json_data_check['skins'][skin_name]:
+                    #print(element)
+                    for bone in self.json_data_check['skins'][skin_name][element]:
+                        if bone not in seen:
+                            #print(bone)
+                            if os.sep in bone:
+                                #print(os.path.basename(slot['attachment']))
+                                image_files_in_json.append(os.path.basename(bone))
+                                seen.add(bone)
+                            else:
+                                image_files_in_json.append(bone)
+                                seen.add(bone)
+            #print(len(image_files_in_json))
+            #print(image_files_in_json)
+
             image_files = []
             for ext in images_extensions:
                 # rglob recursively searches for files matching the pattern
                 for image_path in root_path.rglob(ext):
-                    image_files.append(image_path)
-            # print(image_files)
+                    image_with_extension = os.path.basename(image_path)
+                    image_name = os.path.splitext(image_with_extension)[0]
+                    image_files.append(image_name)
+            #print(len(image_files))
+            #print(image_files)
+
+            #Match the 2 lists to complete the check
+            matches_comprehension = [element for element in image_files_in_json if element in image_files ]
+            #print(len(matches_comprehension))
 
             # If the directory is not empty (images inside) proceed
-            if image_files:
-                self.texture_list = image_files
-                self.images_in_texture_folder = True
+            if image_files: # If there's image files in texture folder
+                #print("Images located")
+                # If the image number are equal in json and in texture folder
+                if len(image_files_in_json) == len(image_files):
+                    if len(matches_comprehension) == len(image_files_in_json):
+                        self.images_in_texture_folder = True
+                        #print("Images match!")
+                    else:
+                        self.images_in_texture_folder = False
+                else:
+                    self.images_in_texture_folder = False
+                    #print("Images not match!")
             # If the directory is empty
             else:
                 self.images_in_texture_folder = False
@@ -295,7 +331,6 @@ class DbJsonConverter:
 
                 except:
                     pass
-
 
                 # Compare Images in Folder and add Width and Height for each image in Skins Section
                 for key in list_of_skins:
@@ -985,7 +1020,7 @@ class DbJsonConverter:
                                             else:
                                                 dict_sc['curve'][5] = 0
                                     except (Exception,):
-                                        print("Error Generate Key 3", key_dict)
+                                        #print("Error Generate Key 3", key_dict)
                                         pass
 
                             if len(key_dict) == 2:  # There only time plus curve or x or y
@@ -995,7 +1030,7 @@ class DbJsonConverter:
                                         dict_sc['curve'][1] = 0
                                         dict_sc['curve'][5] = 0
                                 except (Exception,):
-                                    print("Error Generate Key 2", key_dict)
+                                    #print("Error Generate Key 2", key_dict)
                                     pass
                             # print(dict)
                         # print(attrib_scale)
@@ -1390,7 +1425,7 @@ class DbJsonConverter:
         # Creating new filename with new extension from old json file
         new_json_file_name = self.new_json_file
 
-        print(new_json_file_name)
+        # print(new_json_file_name)
 
         # If there's a diferent folder to save new .json and "Copy Textures Folder" is marked then make a copy
         #print("Texture folder Copy Status:", self.copy_textures_folder)
@@ -1404,13 +1439,13 @@ class DbJsonConverter:
             destination_folder = os.path.dirname(destination_file)
 
             folder_name = destination_folder + "/" + textures_folder_name
-            print(destination_folder)
-            print(source_directory)
+            # print(destination_folder)
+            # print(source_directory)
             # Copy Textures folder IF the Input and Output directories are different
             # This is only for Command Line because this test is done by the GUI.
             if source_folder == source_directory:
                 pass
-                print("Same Textures Folder Directory - Skipping copy")
+                #print("Same Textures Folder Directory - Skipping copy")
             else:
                 #print("different directory")
                 # Create a new Texture folder in the output directory

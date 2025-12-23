@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 """
-DB Reborn 1.0.0
-Dragonbones to Spine Converter for Defold
+DB Reborn 1.0.0 - GUI
+Dragonbones to Spine Converter
 For use in Defold Extension-Spine 3.6.5
+and other Game Engines
 Compatible with Spine 4.2.22
 """
 
@@ -122,21 +123,25 @@ class DbJsonCheck:
                             #print(bone)
                             if os.sep in bone:
                                 #print(os.path.basename(slot['attachment']))
-                                image_files_in_json.append(os.path.basename(bone))
+                                image_files_in_json.append(Path(bone).stem)
                                 seen.add(bone)
                             else:
-                                image_files_in_json.append(bone)
+                                image_files_in_json.append(Path(bone).stem)
+                                #image_files_in_json.append(bone)
                                 seen.add(bone)
             #print(len(image_files_in_json))
             #print(image_files_in_json)
 
+            #Looking for the images in the folder to match
+            seen2 = set()
             image_files = []
             for ext in images_extensions:
                 # rglob recursively searches for files matching the pattern
                 for image_path in root_path.rglob(ext):
                     image_with_extension = os.path.basename(image_path)
                     image_name = os.path.splitext(image_with_extension)[0]
-                    image_files.append(image_name)
+                    if image_path not in seen2:
+                        image_files.append(image_name)
             #print(len(image_files))
             #print(image_files)
 

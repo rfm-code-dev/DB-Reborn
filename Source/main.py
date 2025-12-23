@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 """
 DB Reborn 1.0.0 - GUI
-Dragonbones to Spine Converter for Defold
+Dragonbones to Spine Converter
 For use in Defold Extension-Spine 3.6.5
+and other Game Engines
 Compatible with Spine 4.2.22
 """
 
@@ -588,7 +589,7 @@ Attention: Detected a .json file
         old_json_path, _ = QFileDialog.getOpenFileName(self, "Open Json",
                                                        str(self.app_dir), "Json Files (*.json)", options=options)
         if old_json_path:
-            self.window.json_path.setText(old_json_path)
+            #self.window.json_path.setText(old_json_path)
             old_json_file_name = os.path.basename(old_json_path)
             old_json_file_name = os.path.splitext(old_json_file_name)
             #print(old_json_file_name[0])
@@ -690,6 +691,8 @@ Now select the Output Folder\nto generate your file.
                     msg_box.StandardButton.Ok
                     msg_box.exec()
                     self.input_field = True
+                    self.window.json_path.setText(old_json_path)
+
             else:
                 self.play_sound_alert()
                 self.window.json_path.setText(self.default_input_text)

@@ -111,37 +111,30 @@ class DbJsonCheck:
             # print(root_path)
 
             #Create a list of all images in the json slots
-            seen = set() # Avoid duplicate images
-            image_files_in_json = []
+            image_files_in_json = set()
             for skin_name in self.json_data_check['skins']:
                 #print(skin_name)
                 #print(self.json_data_check['skins'][skin_name])
                 for element in self.json_data_check['skins'][skin_name]:
                     #print(element)
                     for bone in self.json_data_check['skins'][skin_name][element]:
-                        if bone not in seen:
-                            #print(bone)
-                            if os.sep in bone:
-                                #print(os.path.basename(slot['attachment']))
-                                image_files_in_json.append(Path(bone).stem)
-                                seen.add(bone)
-                            else:
-                                image_files_in_json.append(Path(bone).stem)
-                                #image_files_in_json.append(bone)
-                                seen.add(bone)
+                        if os.sep in bone:
+                            #print(os.path.basename(slot['attachment']))
+                            image_files_in_json.add(Path(bone).stem)
+                        else:
+                            image_files_in_json.add(Path(bone).stem)
+
             #print(len(image_files_in_json))
             #print(image_files_in_json)
 
             #Looking for the images in the folder to match
-            seen2 = set()
-            image_files = []
+            image_files = set()
             for ext in images_extensions:
                 # rglob recursively searches for files matching the pattern
                 for image_path in root_path.rglob(ext):
                     image_with_extension = os.path.basename(image_path)
                     image_name = os.path.splitext(image_with_extension)[0]
-                    if image_path not in seen2:
-                        image_files.append(image_name)
+                    image_files.add(image_name)
             #print(len(image_files))
             #print(image_files)
 

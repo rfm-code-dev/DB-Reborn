@@ -1,75 +1,38 @@
 # How to Contribute to DB Reborn
 
-Hello! We're thrilled that you're interested in contributing to DB Reborn. Every contribution is welcome! This document provides a set of guidelines to help you contribute to the project.
+Hello! Thank you for your interest in making DB Reborn better. While the source code for this project is not public, your contributions in the form of feedback, bug reports, and feature suggestions are incredibly valuable.
+
+This document provides guidelines on how to provide feedback in the most effective way.
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+Please note that this project is governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
-## How Can I Help?
+## Please Do Not Send Pull Requests
 
-There are many ways to contribute, and not all of them involve writing code.
-
-*   **Reporting Bugs:** If you find a problem, let us know!
-*   **Suggesting Enhancements:** Have an idea for a new feature or an improvement to the interface? We'd love to hear it.
-*   **Writing Documentation:** Documentation can always be improved.
-*   **Contributing Code:** Fixing a bug or implementing a new feature.
+As this is a closed-source project, we are not able to accept code contributions or Pull Requests at this time. The primary way to contribute is by providing high-quality feedback through GitHub Issues.
 
 ## How to Report a Bug
 
-Good bug reports are extremely helpful. Follow the steps below to ensure your report is as clear as possible.
+Clear and detailed bug reports are the most effective way to help us improve DB Reborn.
 
-1.  **Check if the bug has already been reported:** Search the [Issues](https://github.com/rfm-code-dev/DB-Reborn/issues ) section on GitHub to see if someone has already reported the same problem.
+1.  **Search Existing Issues:** Before creating a new report, please check the [Issues tab](https://github.com/YOUR_USERNAME/YOUR_REPOSITORY/issues ) to see if someone has already reported the same problem.
 
-2.  **Be as detailed as possible:** Create a new "Issue" and include the following information:
-    *   **A clear and descriptive title:** E.g., "App crashes when converting a JSON file with no bones."
-    *   **DB Reborn Version:** E.g., v1.0.
-    *   **Operating System:** E.g., Windows 11, Ubuntu 22.04.
-    *   **Steps to reproduce the error:** Describe exactly what you did to make the error happen. E.g., "1. Opened the app. 2. Selected the `test.json` file. 3. Clicked Convert. 4. The app closed."
-    *   **What did you expect to happen?** E.g., "I expected to see an error message saying the file was invalid."
-    *   **What actually happened?** E.g., "The application closed unexpectedly with no message."
-    *   **Attachments:** If possible, attach the DragonBones `.json` file that caused the problem. This helps us test and debug much faster!
+2.  **Create a New Issue:** If the bug hasn't been reported, please create a new issue and include the following details:
+    *   **A Clear and Descriptive Title:** Example: "App crashes when converting a JSON file with no bones."
+    *   **DB Reborn Version:** Example: v1.0.0.
+    *   **Operating System:** Example: Windows 11, macOS Sonoma, Ubuntu 22.04.
+    *   **Steps to Reproduce:** Describe exactly what you did to trigger the bug. Example: "1. Opened the app. 2. Selected `test.json`. 3. Clicked Convert. 4. The app closed."
+    *   **Expected Behavior:** What did you expect to happen? Example: "I expected to see an error message saying the file was invalid."
+    *   **Actual Behavior:** What actually happened? Example: "The application closed unexpectedly with no message."
+    *   **Attachments:** If possible, please attach the DragonBones `.json` file that caused the problem. This is the single most helpful thing you can do to help us debug!
 
-## How to Suggest an Enhancement
+## How to Suggest a Feature or Enhancement
 
-1.  Create a new "Issue" on GitHub.
-2.  Use a clear title, like "Suggestion: Add an animation preview in the UI."
-3.  Describe your idea in detail. Explain the problem it solves and how you imagine the feature should work.
+We would love to hear your ideas for making DB Reborn even better!
 
-## How to Contribute Code
+1.  **Create a New Issue:** Go to the [Issues tab](https://github.com/rfm-code-dev/DB-Reborn/issues ).
+2.  **Use a Clear Title:** Example: "Suggestion: Add an option to automatically create a subfolder for a new conversion."
+3.  **Describe Your Idea:** Explain the problem you are trying to solve or the workflow you want to improve. Describe how you imagine the new feature working from a user's perspective. The more detail, the better!
 
-If you want to fix a bug or implement a new feature, please follow these steps:
-
-1.  **Fork the repository:** Click the "Fork" button in the top-right corner of the project page to create a copy of the repository in your own GitHub account.
-
-2.  **Clone your fork:**
-    ```bash
-    git clone https://github.com/rfm-code-dev/DB-Reborn.git
-    ```
-
-3.  **Create a new Branch:** Create a specific branch for your change. Use a descriptive name.
-    ```bash
-    git checkout -b my-awesome-fix
-    ```
-
-4.  **Make your changes:** Write your code, fix the bug, or implement the new feature.
-
-5.  **Commit your changes:** Use clear commit messages.
-    ```bash
-    git add .
-    git commit -m "Feat: Add support for shear interpolation"
-    ```
-
-6.  **Push your changes to your fork:**
-    ```bash
-    git push origin my-awesome-fix
-    ```
-
-7.  **Open a Pull Request (PR ):**
-    *   Go to your fork's page on GitHub.
-    *   Click the "Compare & pull request" button.
-    *   In the PR title and description, clearly explain what you did and why. If your PR fixes an existing Issue, mention its number (e.g., `Fixes #42`).
-
-Wait for your code to be reviewed. We may ask for some changes before merging your work into the main project.
-
-Thank you for your contribution!
+Thank you for helping make DB Reborn a better tool for everyone!

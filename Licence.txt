@@ -1,0 +1,39 @@
+End-User License Agreement (EULA) for DB Reborn
+================================================
+
+This End-User License Agreement ("EULA") is a legal agreement between you (either an individual or a single entity) and RFM Code Dev ("the Author") for the software product DB Reborn ("the Software").
+
+By installing, copying, or otherwise using the Software, you agree to be bound by the terms of this EULA. If you do not agree to the terms of this EULA, do not install or use the Software.
+
+
+1. Grant of License
+--------------------
+The Author grants you a non-exclusive, non-transferable, royalty-free license to use the Software for your personal and commercial purposes, subject to the terms of this EULA.
+
+
+2. Description of Other Rights and Limitations
+-------------------------------------------------
+(a) No Reverse Engineering: You shall not, and shall not permit others to, reverse engineer, decompile, or disassemble the Software.
+
+(b) No Rental or Sale: You may not rent, lease, sell, or lend the Software to any third party. You are, however, permitted to distribute the executable files freely, provided that this EULA is included.
+
+(c) No Modifications: You may not modify the Software or create derivative works based upon the Software.
+
+
+3. Copyright
+------------
+The Software is protected by copyright laws and international copyright treaties, as well as other intellectual property laws and treaties. The Software is licensed, not sold. All title and copyrights in and to the Software are owned by the Author.
+
+
+4. Disclaimer of Warranty
+-------------------------
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+5. Governing Law
+----------------
+This agreement shall be governed by the laws of Brazil.
+
+---
+Last Updated: February 20, 2026
+

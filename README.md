@@ -1,10 +1,13 @@
 [Read this in Portuguese (Leia em Português)](README_PT-BR.md)
 
 <p align="center">
-  <a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3"></a>
   <a href="https://www.python.org"><img src="https://img.shields.io/badge/python-3.7%2B-3776AB.svg?style=flat&logo=python&logoColor=white" alt="Python Version"></a>
-  <a href="https://github.com/rfm-code-dev/DB-Reborn/releases/"><img src="https://img.shields.io/github/downloads/YOUR_USERNAME/YOUR_REPOSITORY/total" alt="GitHub all releases"></a>
-  <a href="https://github.com/rfm-code-dev/DB-Reborn/commits/main"><img src="https://img.shields.io/github/last-commit/YOUR_USERNAME/YOUR_REPOSITORY" alt="GitHub last commit"></a>
+  <a href="https://github.com/rfm-code-dev/DB-Reborn/releases/"><img src="https://img.shields.io/github/downloads/rfm-code-dev/DB-Reborn/total" alt="GitHub all releases"></a>
+  <a href="https://github.com/rfm-code-dev/DB-Reborn/commits/main"><img src="https://img.shields.io/github/last-commit/rfm-code-dev/DB-Reborn" alt="GitHub last commit"></a>
+
+  <img src="https://img.shields.io/github/v/release/rfm-code-dev/DB-Reborn?style=for-the-badge">
+  <img src="https://img.shields.io/github/downloads/rfm-code-dev/DB-Reborn/total?style=for-the-badge&color=brightgreen">
+  <img src="https://img.shields.io/github/license/rfm-code-dev/DB-Reborn?style=for-the-badge">
 </p>
 
 # DB Reborn

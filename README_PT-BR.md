@@ -54,7 +54,7 @@ Você tem duas opções para rodar a aplicação:
 
 **Opção A: Baixar o Aplicativo (Modo Fácil)**
 
-1. Vá para a [página de Releases](https://github.com/YOUR_USERNAME/YOUR_REPOSITORY/releases) no GitHub.
+1. Vá para a [página de Releases](https://github.com/rfm-code-dev/DB-Reborn/releases) no GitHub.
 2. Baixe o executável para Windows ou Linux.
 3. Execute o aplicativo.
 

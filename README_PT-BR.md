@@ -35,6 +35,7 @@ Se sua engine ou framework suporta Spine JSON, ele funcionará com o DB Reborn.
 Este projeto é uma ferramenta de conversão de formato de arquivo e não possui afiliação com a Esoteric Software. O propósito de gerar arquivos no formato JSON do Spine é permitir a interoperabilidade. Lembre-se que para utilizar as animações exportadas em seu jogo com as Runtimes oficiais do Spine, você e/ou sua empresa podem precisar adquirir uma licença apropriada do Spine, de acordo com os termos de serviço da Esoteric Software.
 
 ## Como Usar
+💥 Você pode encontrar um modelo de projeto na pasta example/ para testar imediatamente o processo de conversão 💥
 
 ### 1. Crie sua Animação
 

@@ -37,6 +37,8 @@ This project is a file format conversion tool and is not affiliated with Esoteri
 
 ## How to Use
 
+💥 You can find a sample project in the example/ folder to test the conversion process immediately 💥
+
 ### 1. Create Your Animation
 
 - Create your animation in **DragonBones 5.6.2**.

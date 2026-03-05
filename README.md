@@ -56,9 +56,11 @@ This project is a file format conversion tool and is not affiliated with Esoteri
 1. Go to the [Releases page](https://github.com/rfm-code-dev/DB-Reborn/releases) on GitHub.
 2. Download the executable for Windows, Mac or Linux.
 3. Run the app.
-4. Click the first "..." button to select your input `.json` file 3.3 generated from Dragonbones.
-   
+
    ![DB Reborn Main Window](images/1_db_reborn_window.png)
+
+4. Click the first "..." button to select your input `.json` file 3.3 generated from Dragonbones.
+ 
    
    *Note: After selecting the `.json` file, DB Reborn will perform a series of checks to ensure it meets the required standard for a successful conversion. Three pop-up windows will appear in sequence: one indicating that the `.json` file appears to be OK, another confirming that the `YOUR_FILE_TEXTURES` folder was found and a final one verifying that this folder contains the project's images. Simply click the "OK" button on each pop-up to proceed.*
 

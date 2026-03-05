@@ -51,77 +51,27 @@ Este projeto é uma ferramenta de conversão de formato de arquivo e não possui
 
 ### 3. Execute o DB Reborn
 
-Você tem duas opções para rodar a aplicação:
-
-**Opção A: Baixar o Aplicativo (Modo Fácil)**
-
 1. Vá para a [página de Releases](https://github.com/rfm-code-dev/DB-Reborn/releases) no GitHub.
-2. Baixe o executável para Windows ou Linux.
+2. Baixe o executável para Windows, Mac ou Linux.
 3. Execute o aplicativo.
-
-**Opção B: Executar a partir do Código-Fonte (para usuários avançados)**
-
-1. Baixe a pasta `Source`.
-
-2. Tenha o Python 3 instalado em seu sistema.
-
-3. Instale os módulos necessários executando:
-   
-   Bash
-   
-   ```
-   pip install PySide6 Pillow wxPython
-   ```
-
-4. Você pode então rodar a interface gráfica ou usar a linha de comando.
-
-### 4. Converta o Arquivo
-
-**Usando a Interface de Linha de Comando (CLI):**
-
-Abra seu terminal dentro da pasta `Source` e execute o script com os seguintes argumentos:
-
-Bash
-
-```
-python3 db_reborn.py "caminho/para/seu.json" "caminho/para/pasta_de_saida" "4.2.22" "tipo_de_ease" "copiar_pasta_de_texturas"
-```
-
-- `"caminho/para/seu.json"`: O caminho completo para o arquivo JSON de entrada do DragonBones.
-- `"caminho/para/pasta_de_saida"`: A pasta onde o arquivo `.spinejson` será salvo.
-- `"4.2.22"`: A versão alvo do Spine (atualmente fixa).
-- `"tipo_de_ease"`: Use `"curve"` para converter as curvas de suavização ou `"linear"` para forçar transições lineares.
-- `"copiar_pasta_de_texturas"`: Se o caminho para a pasta de saída for diferente do caminho original use `"True"` para copiar a pasta de texturas ou `"False"` para não copiar. Se o caminho da pasta de entrada e de saída for o mesmo, o padrão sempre será `"False"`.
-
-Exemplo: python3 db_reborn.py "/home/user/Downloads/animation.json" "/home/user/Game/new_animation.json" "curve" "True"
-
-Ação: Db Reborn carregará "animation.json" na pasta "Downloads", converterá  um novo .json com suavização de curvas "ease", salvará o arquivo "new_animation.json" e copiará a pasta "animation_texture",  ambos na pasta "Game".
-
-**Usando a Interface Gráfica:**
-
-1. Abra o DB Reborn.
-   Você pode executá-lo clicando no arquivo executável ou através da linha de comando, se todos os pacotes Python necessários estiverem instalados:
-    
-   ```
-   python3 main.py
-   ``` 
    
    ![DB Reborn Main Window](images/1_db_reborn_window.png)
 
-3. Clique no botão "..." para selecionar seu arquivo de entrada `.json` 3.3 gerado do Dragonbones.
+4. Clique no botão "..." para selecionar seu arquivo de entrada `.json` 3.3 gerado do Dragonbones.
    
    *Observação: Após selecionar o  `.json`, o DB Reborn fará verificações no arquivo para ver se ele está de acordo com o padrão para ser convertido corretamente. Três janelas popup irão aparecer em sequência: Uma indicando que o  `.json` está aparentemente OK, outra que foi localizada a pasta  `SEU_ARQUIVO_TEXTURES` e a última, que a pasta contém as imagens do projeto. É só clicar no botão de OK em cada "popup" para prosseguir.*
 
-4. O próximo passo é clicar no segundo botão "..." para selecionar a pasta de saída e o arquivo de saída. Escolha a extensão para o arquivo (`.json` ou `.spinejson`).
+5. O próximo passo é clicar no segundo botão "..." para selecionar a pasta de saída e o arquivo de saída. Escolha a extensão para o arquivo (`.json` ou `.spinejson`).
+
     ![DB Reborn Texture Folder](images/2_db_reborn_window_copy_texture_folder.png)
    
    *Observação: Caso você selecione uma pasta de saída diferente da pasta onde está localizado o `.json`, o DB Reborn irá tornar a checkbox 'Copy Texture Folder' ativa, fornecendo a opção de copiar a pasta `SEU_ARQUIVO_TEXTURES` para o novo local. É só marcar o "checkbox". Caso deseje apenas gerar o `.json` ou `.spinejson`, deixe o "checkbox" desmarcado.*
 
-5. Clique em **Converter!**
+7. Clique em **Converter!**
 
 ![DB Reborn Success](images/3_db_reborn_window_success.png)
 
-### 5. Importe na Defold Game Engine
+### 4. Importe na Defold Game Engine
 
 1. Copie o arquivo `SEU_ARQUIVO.spinejson` gerado e a pasta `SEU_ARQUIVO_TEXTURES` para o seu projeto Defold.
 2. No seu arquivo `game.project`, adicione a [dependência da extensão do Spine](https://defold.com/manuals/spine/).

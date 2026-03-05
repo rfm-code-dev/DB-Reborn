@@ -53,79 +53,26 @@ This project is a file format conversion tool and is not affiliated with Esoteri
 
 ### 3. Run DB Reborn
 
-You have two options to run the application:
-
-**Option A: Download the App (Easy Way)**
-
 1. Go to the [Releases page](https://github.com/rfm-code-dev/DB-Reborn/releases) on GitHub.
 2. Download the executable for Windows, Mac or Linux.
 3. Run the app.
-
-**Option B: Run from Source (for advanced users)**
-
-1. Download the `Source` folder.
-
-2. Make sure you have Python 3 installed on your system.
-
-3. Install the required modules by running:
-   
-   Bash
-   
-   ```
-   pip install PySide6 Pillow wxPython
-   ```
-
-4. You can then run the GUI or use the command line.
-
-### 4. Convert the File
-
-***Using the Command Line Interface (CLI):***
-
-Open your terminal inside the `Source` folder and run the script with the following arguments:
-
-Bash
-
-```
-python3 db_reborn.py "path/to/your.json" "path/to/output_file" "4.2.22" "ease_type" "copy_textures_folder"
-```
-
-- `"path/to/your.json"`: The full path to the input DragonBones JSON file.
-- `"path/to/output_file"`: The complete path with filename (`.json` or `.spinejson`) where file will be saved.
-- `"4.2.22"`: The target Spine version (currently fixed).
-- `"ease_type"`: Use `"curve"` to convert easing or `"linear"` to force linear transitions.
-- `"copy_textures_folder"`: If input and output folders are different, you can use `"True"` to copy Textures Folder or `"False"` to not copy. If the input and output are the same, the DB Reborn will force `"False"`.
-
-Example: `python3 db_reborn.py "/home/user/Downloads/animation.json" "/home/user/Game/new_animation.json" "curve" "True"`
-
-Action: Db Reborn will get "animation.json" in the "Downloads" folder, converts a new .json with "ease" curves, save "new_animation.json" and copy it with the "animation_texture" folder in the "Game" folder.
-
-
-***Using the GUI:***
-
-1. Open DB Reborn.
-You can run it by clicking the executable file or via the command line, if all the necessary Python packages are installed:
-    
-   ```
-   python3 main.py
-   ``` 
-
-2. Click the first "..." button to select your input `.json` file 3.3 generated from Dragonbones.
+4. Click the first "..." button to select your input `.json` file 3.3 generated from Dragonbones.
    
    ![DB Reborn Main Window](images/1_db_reborn_window.png)
    
    *Note: After selecting the `.json` file, DB Reborn will perform a series of checks to ensure it meets the required standard for a successful conversion. Three pop-up windows will appear in sequence: one indicating that the `.json` file appears to be OK, another confirming that the `YOUR_FILE_TEXTURES` folder was found and a final one verifying that this folder contains the project's images. Simply click the "OK" button on each pop-up to proceed.*
 
-3. Click the second "..." button to select the output folder and the file. Choose the file extension (`.json` or `.spinejson`).
+5. Click the second "..." button to select the output folder and the file. Choose the file extension (`.json` or `.spinejson`).
    
    ![DB Reborn Main Window](images/2_db_reborn_window_copy_texture_folder.png)
    
    *Note: If you choose an output folder different from the one where the input `.json` is located, DB Reborn will turn the 'Copy Texture Folder' checkbox active, leaving you to copy the `YOUR_FILE_TEXTURES` folder to the new location. Just check the corresponding checkbox. If you only wish to generate the `.json` or `.spinejson` file without copying the textures, leave the checkbox unchecked.*
 
-4. Click **Convert!**
+6. Click **Convert!**
    
    ![DB Reborn Main Window](images/3_db_reborn_window_success.png)
 
-### 5. Import into Defold Game Engine
+### 4. Import into Defold Game Engine
 
 1. Copy the generated `YOUR_FILE.spinejson` and the `YOUR_FILE_TEXTURES` folder into your Defold project.
 2. In your `game.project` file, add the [Spine extension dependency](https://defold.com/manuals/spine/).

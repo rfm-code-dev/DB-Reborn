@@ -4,7 +4,7 @@
   <a href="https://www.python.org"><img src="https://img.shields.io/badge/python-3.7%2B-3776AB.svg?style=flat&logo=python&logoColor=white" alt="Python Version"></a>
   <a href="https://github.com/rfm-code-dev/DB-Reborn/releases/"><img src="https://img.shields.io/github/downloads/rfm-code-dev/DB-Reborn/total?cache=1" alt="GitHub all releases"></a>
   <a href="https://github.com/rfm-code-dev/DB-Reborn/commits/main"><img src="https://img.shields.io/github/last-commit/rfm-code-dev/DB-Reborn?cache=1" alt="GitHub last commit"></a>
-  <a href="https://github.com/rfm-code-dev/DB-Reborn/license"><img src="https://img.shields.io/github/license/rfm-code-dev/DB-Reborn?cache=1" alt="GitHub license"></a>
+  <a href="https://github.com/rfm-code-dev/DB-Reborn/LICENCE"><img src="https://img.shields.io/github/license/rfm-code-dev/DB-Reborn?cache=1" alt="GitHub license"></a>
 </p>
 
 # DB Reborn

@@ -69,7 +69,7 @@ Este projeto é uma ferramenta de conversão de formato de arquivo e não possui
 
 7. Clique em **Converter!**
 
-![DB Reborn Success](images/3_db_reborn_window_success.png)
+    ![DB Reborn Success](images/3_db_reborn_window_success.png)
 
 ### 4. Importe na Defold Game Engine
 

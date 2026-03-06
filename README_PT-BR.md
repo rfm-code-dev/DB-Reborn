@@ -54,14 +54,16 @@ Este projeto é uma ferramenta de conversão de formato de arquivo e não possui
 1. Vá para a [página de Releases](https://github.com/rfm-code-dev/DB-Reborn/releases) no GitHub.
 2. Baixe o executável para Windows, Mac ou Linux.
 3. Execute o aplicativo.
+
+   *Nota para usuários de MacOS: Na primeira vez que você abrir o DB Reborn a inicialização pode levar até um minuto. Isso ocorre porque o macOS está verificando a segurança do aplicativo. As aberturas seguintes serão muito mais rápidas. Caso o aplicativo não abra, clique com o botão direito sobre ele e selecione Abrir.*
    
    ![DB Reborn Main Window](images/1_db_reborn_window.png)
 
-4. Clique no botão "..." para selecionar seu arquivo de entrada `.json` 3.3 gerado do Dragonbones.
+5. Clique no botão "..." para selecionar seu arquivo de entrada `.json` 3.3 gerado do Dragonbones.
    
    *Observação: Após selecionar o  `.json`, o DB Reborn fará verificações no arquivo para ver se ele está de acordo com o padrão para ser convertido corretamente. Três janelas popup irão aparecer em sequência: Uma indicando que o  `.json` está aparentemente OK, outra que foi localizada a pasta  `SEU_ARQUIVO_TEXTURES` e a última, que a pasta contém as imagens do projeto. É só clicar no botão de OK em cada "popup" para prosseguir.*
 
-5. O próximo passo é clicar no segundo botão "..." para selecionar a pasta de saída e o arquivo de saída. Escolha a extensão para o arquivo (`.json` ou `.spinejson`).
+6. O próximo passo é clicar no segundo botão "..." para selecionar a pasta de saída e o arquivo de saída. Escolha a extensão para o arquivo (`.json` ou `.spinejson`).
 
     ![DB Reborn Texture Folder](images/2_db_reborn_window_copy_texture_folder.png)
    

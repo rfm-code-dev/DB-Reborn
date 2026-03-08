@@ -62,6 +62,8 @@ This project is a file format conversion tool and is not affiliated with Esoteri
    *Apple Silicon (M1, M2, M3) Compatibility:
 This app is built for Intel-based Macs. On Apple Silicon Macs, it runs perfectly via Rosetta 2. If you don't have Rosetta installed, macOS will automatically ask if you want to install it when you first open the app.*
 
+   *Linux Users: After downloading, you may need to give execution permission to the file: chmod +x DB_Reborn*
+
    ![DB Reborn Main Window](images/1_db_reborn_window.png)
 
 5. Click the first "..." button to select your input `.json` file 3.3 generated from Dragonbones.

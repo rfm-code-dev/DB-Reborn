@@ -56,6 +56,8 @@ Este projeto é uma ferramenta de conversão de formato de arquivo e não possui
 3. Execute o aplicativo.
 
    *Nota para usuários de MacOS: Na primeira vez que você abrir o DB Reborn a inicialização pode levar até um minuto. Isso ocorre porque o macOS está verificando a segurança do aplicativo. As aberturas seguintes serão muito mais rápidas. Caso o aplicativo não abra, clique com o botão direito sobre ele e selecione Abrir.*
+
+   *Compatibilidade com Apple Silicon (M1, M2, M3): Este aplicativo foi compilado para Macs baseados em Intel. Em Macs com processadores Apple Silicon, ele funciona perfeitamente através do Rosetta 2. Caso você não tenha o Rosetta instalado, o macOS perguntará automaticamente se deseja instalá-lo ao abrir o aplicativo pela primeira vez.*
    
    ![DB Reborn Main Window](images/1_db_reborn_window.png)
 

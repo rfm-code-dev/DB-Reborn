@@ -13,7 +13,7 @@
 
 ## Introdução
 
-O DB Reborn é uma ferramenta gratuita e de código aberto que converte animações do clássico editor DragonBones para o formato moderno Spine JSON. Isso permite que você use suas animações do DragonBones em uma vasta gama de game engines e frameworks populares.
+O DB Reborn é uma ferramenta gratuita que converte animações do clássico editor DragonBones para o formato moderno Spine JSON. Isso permite que você use suas animações do DragonBones em uma vasta gama de game engines e frameworks populares.
 
 Embora tenha sido criado originalmente para a **Game Engine Defold**, o DB Reborn é uma ponte universal para qualquer desenvolvedor que busca um fluxo de trabalho gratuito para animação de recorte. Ao gerar um arquivo Spine JSON padrão, ele torna suas animações compatíveis com engines como **Godot, Unity, GameMaker** e muitas outras.
 
